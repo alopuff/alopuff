@@ -34,29 +34,11 @@
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
 .page{display:none;min-height:100vh;}
 .page.active{display:flex;flex-direction:column;}
-
-/* TOAST */
-#toast{
-  position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-90px);
-  background:var(--success);color:#fff;padding:13px 26px;border-radius:50px;
-  font-size:14px;font-weight:600;z-index:9999;
-  transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow:0 8px 24px rgba(16,185,129,0.3);white-space:nowrap;
-}
+#toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--success);color:#fff;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;z-index:9999;transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 8px 24px rgba(16,185,129,0.3);white-space:nowrap;}
 #toast.show{transform:translateX(-50%) translateY(0);}
 #toast.err{background:var(--danger);box-shadow:0 8px 24px rgba(239,68,68,0.3);}
-
-/* ─── LANDING ─── */
-#page-landing{
-  background:linear-gradient(145deg,#e8f2fd 0%,#f4f7fb 50%,#edf4fc 100%);
-  align-items:center;justify-content:center;flex-direction:column;
-}
-.land-nav{
-  position:fixed;top:0;left:0;right:0;padding:16px 44px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);z-index:100;
-}
+#page-landing{background:linear-gradient(145deg,#e8f2fd 0%,#f4f7fb 50%,#edf4fc 100%);align-items:center;justify-content:center;flex-direction:column;}
+.land-nav{position:fixed;top:0;left:0;right:0;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:100;}
 .logo{font-size:22px;font-weight:800;letter-spacing:-0.8px;display:flex;align-items:center;gap:6px;}
 .logo-alo{color:var(--text);}
 .logo-puff{color:var(--accent);}
@@ -74,47 +56,23 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .land-features{display:flex;gap:10px;margin-top:48px;flex-wrap:wrap;justify-content:center;}
 .feat{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);font-weight:500;}
 .feat span{font-size:15px;}
-
-/* ─── ORDER PAGE ─── */
 #page-order{flex-direction:column;background:var(--bg);}
 .order-nav{background:var(--white);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:16px;}
 .btn-back{background:var(--bg);border:1px solid var(--border);color:var(--text-2);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;font-family:inherit;}
 .btn-back:hover{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent);}
 .order-nav-title{font-size:17px;font-weight:700;letter-spacing:-0.4px;}
 .order-body{display:grid;grid-template-columns:1fr 360px;gap:28px;max-width:1140px;margin:0 auto;width:100%;padding:32px 28px;flex:1;align-items:start;}
-
-/* Section label */
 .section-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:18px;}
-
-/* PRODUCT CARDS */
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;}
-
-.pcard{
-  background:var(--white);border:2px solid var(--border);border-radius:16px;
-  padding:0;cursor:pointer;transition:all 0.2s;text-align:center;
-  position:relative;box-shadow:var(--shadow-card);overflow:hidden;
-}
+.pcard{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:0;cursor:pointer;transition:all 0.2s;text-align:center;position:relative;box-shadow:var(--shadow-card);overflow:hidden;}
 .pcard:hover{border-color:var(--accent-mid);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .pcard.in-cart{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-light) 0%,var(--white) 100%);}
-
-/* Product visual area */
-.pcard-visual{
-  height:130px;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
+.pcard-visual{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .pcard-visual svg{width:100%;height:100%;}
-
-/* tag ribbon */
-.pcard-tag{
-  position:absolute;top:10px;left:10px;
-  background:var(--accent);color:#fff;font-size:9px;font-weight:800;
-  letter-spacing:0.4px;text-transform:uppercase;padding:3px 8px;border-radius:5px;
-}
+.pcard-tag{position:absolute;top:10px;left:10px;background:var(--accent);color:#fff;font-size:9px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;padding:3px 8px;border-radius:5px;}
 .pcard-info{padding:12px 12px 10px;}
 .pcard-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3;letter-spacing:-0.2px;}
-.pcard-puffs{font-size:10px;color:var(--text-3);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px;}
 .pcard-price{font-size:15px;color:var(--accent-dark);font-weight:800;letter-spacing:-0.3px;}
-
 .pcard-bottom{padding:0 10px 12px;}
 .pcard-qty-row{display:flex;align-items:center;justify-content:center;gap:2px;margin-top:8px;}
 .pcard-qb{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--border-strong);background:var(--white);color:var(--text-2);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-weight:700;line-height:1;flex-shrink:0;}
@@ -122,8 +80,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pcard-qn{width:34px;text-align:center;font-size:16px;font-weight:800;color:var(--text);}
 .pcard-add-btn{width:100%;background:var(--accent-light);border:1.5px solid var(--accent-mid);color:var(--accent-dark);padding:8px 0;border-radius:9px;cursor:pointer;font-size:12px;font-weight:700;transition:all 0.15s;font-family:inherit;letter-spacing:0.2px;}
 .pcard-add-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
-
-/* ─── CART PANEL ─── */
 .cart-panel{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:var(--shadow-card);position:sticky;top:24px;}
 .cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .cart-title{font-size:15px;font-weight:700;letter-spacing:-0.3px;}
@@ -154,9 +110,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-submit{width:100%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);border:none;color:#fff;padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-top:6px;font-family:inherit;box-shadow:0 4px 16px rgba(74,144,217,0.35);}
 .btn-submit:hover{box-shadow:0 6px 24px rgba(74,144,217,0.45);transform:translateY(-1px);}
 .btn-submit:active{transform:translateY(0);}
-.btn-submit:disabled{background:var(--border);color:var(--text-3);cursor:not-allowed;box-shadow:none;}
-
-/* ─── ADMIN LOGIN ─── */
 #page-admin-login{justify-content:center;align-items:center;background:var(--bg);}
 .login-wrap{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:42px 38px;width:100%;max-width:400px;box-shadow:var(--shadow-md);}
 .login-icon{width:54px;height:54px;background:var(--accent-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;}
@@ -167,8 +120,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .login-err{color:var(--danger);font-size:13px;margin-top:12px;display:none;font-weight:600;background:var(--danger-bg);padding:10px 14px;border-radius:9px;}
 .btn-text-sm{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:13px;margin-top:16px;display:block;margin-left:auto;margin-right:auto;font-family:inherit;transition:color 0.15s;font-weight:500;}
 .btn-text-sm:hover{color:var(--accent);}
-
-/* ─── ADMIN PANEL ─── */
 #page-admin{flex-direction:column;background:var(--bg);}
 .admin-nav{background:var(--white);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
 .admin-brand{display:flex;align-items:center;gap:10px;}
@@ -207,7 +158,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .empty-state{text-align:center;padding:60px 20px;color:var(--text-3);}
 .empty-state .ei{font-size:44px;margin-bottom:14px;opacity:0.5;}
 .empty-state p{font-size:14px;}
-
 @media(max-width:780px){
   .order-body{grid-template-columns:1fr;padding:16px;}
   .cart-panel{position:static;}
@@ -220,7 +170,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 <body>
 <div id="toast"></div>
 
-<!-- ════ LANDING ════ -->
 <div class="page active" id="page-landing">
   <nav class="land-nav">
     <div class="logo"><div class="logo-dot"></div><span class="logo-alo">Alo</span><span class="logo-puff">Puff</span></div>
@@ -238,7 +187,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
   </div>
 </div>
-
 
 <div class="page" id="page-order">
   <nav class="order-nav">
@@ -260,7 +208,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="form-group">
         <label class="form-label">Ad Soyad</label>
         <input class="form-input" type="text" id="input-name" placeholder="Adınızı girin">
-        <div class="form-error" id="err-name">Yukarda ne yazıyor kardesim benim</div>
+        <div class="form-error" id="err-name">Lütfen adınızı girin</div>
       </div>
       <div class="form-group">
         <label class="form-label">Telefon</label>
@@ -272,7 +220,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   </div>
 </div>
 
-<!-- ════ ADMIN LOGIN ════ -->
 <div class="page" id="page-admin-login">
   <div class="login-wrap">
     <div class="login-icon">🔒</div>
@@ -292,7 +239,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   </div>
 </div>
 
-<!-- ════ ADMIN PANEL ════ -->
 <div class="page" id="page-admin">
   <nav class="admin-nav">
     <div class="admin-brand">
@@ -311,127 +257,27 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   </div>
 </div>
 
-<script>
-const ADMIN_USER='admin',ADMIN_PASS='siparis2024';
+<!-- REALTIME DATABASE SDK'LERİ -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
-// SVG vape device illustrations — each product gets a distinct device shape + colour
-function vapeSVG(type,color1,color2,label,screenColor){
-  const sc=screenColor||'#1a1a2e';
-  if(type==='slim'){
-    // slim pen/stick style (Star, Hookah)
-    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="${color1}"/>
-          <stop offset="100%" stop-color="${color2}"/>
-        </linearGradient>
-        <linearGradient id="gs${color1.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>
-          <stop offset="100%" stop-color="#000" stop-opacity="0.08"/>
-        </linearGradient>
-      </defs>
-      <!-- body -->
-      <rect x="38" y="14" width="44" height="96" rx="14" fill="url(#g${color1.replace('#','')})" />
-      <rect x="38" y="14" width="44" height="96" rx="14" fill="url(#gs${color1.replace('#','')})" />
-      <!-- mouthpiece -->
-      <rect x="47" y="6" width="26" height="12" rx="5" fill="${color2}" opacity="0.85"/>
-      <!-- screen -->
-      <rect x="46" y="38" width="28" height="36" rx="5" fill="${sc}"/>
-      <rect x="49" y="41" width="22" height="7" rx="2" fill="#fff" opacity="0.12"/>
-      <text x="60" y="59" text-anchor="middle" font-size="7" font-family="monospace" fill="#64d8cb" font-weight="bold">${label}</text>
-      <!-- led dots -->
-      <circle cx="60" cy="76" r="2.5" fill="#fff" opacity="0.5"/>
-      <!-- brand line -->
-      <text x="60" y="96" text-anchor="middle" font-size="6" font-family="sans-serif" fill="#fff" opacity="0.55" font-weight="600">VOZOL</text>
-      <!-- airflow -->
-      <rect x="52" y="103" width="16" height="4" rx="2" fill="#000" opacity="0.15"/>
-    </svg>`;
-  }
-  if(type==='box'){
-    // box/rectangular style (Rave, Vista, Gear)
-    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gb${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="${color1}"/>
-          <stop offset="100%" stop-color="${color2}"/>
-        </linearGradient>
-        <linearGradient id="gbs${color1.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fff" stop-opacity="0.2"/>
-          <stop offset="100%" stop-color="#000" stop-opacity="0.1"/>
-        </linearGradient>
-      </defs>
-      <!-- body -->
-      <rect x="24" y="18" width="72" height="94" rx="12" fill="url(#gb${color1.replace('#','')})"/>
-      <rect x="24" y="18" width="72" height="94" rx="12" fill="url(#gbs${color1.replace('#','')})"/>
-      <!-- mouthpiece -->
-      <rect x="44" y="8" width="32" height="14" rx="6" fill="${color2}" opacity="0.9"/>
-      <!-- screen -->
-      <rect x="33" y="36" width="54" height="44" rx="7" fill="${sc}"/>
-      <rect x="36" y="39" width="48" height="8" rx="2" fill="#fff" opacity="0.1"/>
-      <text x="60" y="60" text-anchor="middle" font-size="8" font-family="monospace" fill="#64d8cb" font-weight="bold">${label}</text>
-      <text x="60" y="71" text-anchor="middle" font-size="6" font-family="monospace" fill="#888" font-weight="500">100%</text>
-      <!-- button -->
-      <rect x="44" y="88" width="32" height="10" rx="5" fill="#000" opacity="0.18"/>
-      <!-- brand -->
-      <text x="60" y="104" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.6" font-weight="700">VOZOL</text>
-      <!-- usb -->
-      <rect x="52" y="107" width="16" height="4" rx="2" fill="#000" opacity="0.2"/>
-    </svg>`;
-  }
-  if(type==='hookah'){
-    // hookah adapter style — wider, shorter cylinder
-    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gh${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="${color1}"/>
-          <stop offset="100%" stop-color="${color2}"/>
-        </linearGradient>
-      </defs>
-      <!-- hose adapter top -->
-      <rect x="42" y="8" width="36" height="10" rx="5" fill="${color2}" opacity="0.85"/>
-      <!-- body -->
-      <rect x="30" y="18" width="60" height="80" rx="14" fill="url(#gh${color1.replace('#','')})"/>
-      <!-- sheen -->
-      <rect x="30" y="18" width="60" height="80" rx="14" fill="#fff" opacity="0.1"/>
-      <!-- screen area -->
-      <rect x="38" y="34" width="44" height="36" rx="7" fill="${sc}"/>
-      <text x="60" y="53" text-anchor="middle" font-size="8" font-family="monospace" fill="#f0c040" font-weight="bold">${label}</text>
-      <!-- hookah symbol -->
-      <text x="60" y="66" text-anchor="middle" font-size="8" font-family="sans-serif" fill="#f0c040" opacity="0.7">🪝</text>
-      <!-- brand -->
-      <text x="60" y="90" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.65" font-weight="700">VOZOL</text>
-      <!-- bottom port -->
-      <rect x="48" y="95" width="24" height="5" rx="2.5" fill="#000" opacity="0.18"/>
-    </svg>`;
-  }
-  if(type==='carton'){
-    // carton/pack box style — Oris
-    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gc${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="${color1}"/>
-          <stop offset="100%" stop-color="${color2}"/>
-        </linearGradient>
-      </defs>
-      <!-- carton box -->
-      <rect x="18" y="22" width="84" height="86" rx="8" fill="url(#gc${color1.replace('#','')})"/>
-      <rect x="18" y="22" width="84" height="86" rx="8" fill="#fff" opacity="0.08"/>
-      <!-- flap top -->
-      <rect x="22" y="14" width="76" height="12" rx="4" fill="${color2}" opacity="0.88"/>
-      <!-- label area white -->
-      <rect x="26" y="36" width="68" height="52" rx="5" fill="#fff" opacity="0.15"/>
-      <!-- product name on box -->
-      <text x="60" y="56" text-anchor="middle" font-size="8" font-family="sans-serif" fill="#fff" font-weight="800">ORIS</text>
-      <text x="60" y="67" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.85" font-weight="600">Mango Pulse</text>
-      <!-- mango -->
-      <text x="60" y="82" text-anchor="middle" font-size="18">🥭</text>
-      <!-- carton label -->
-      <rect x="30" y="98" width="60" height="7" rx="3" fill="#fff" opacity="0.12"/>
-      <text x="60" y="104" text-anchor="middle" font-size="5.5" font-family="sans-serif" fill="#fff" opacity="0.6" font-weight="700">KARTON · 10 ADET</text>
-    </svg>`;
-  }
-  return `<svg viewBox="0 0 120 130"><text x="60" y="65" text-anchor="middle" font-size="40">📦</text></svg>`;
-}
+<script>
+// Realtime Database Bilgilerin
+const firebaseConfig = {
+  apiKey: "AIzaSyBdMDJ9ryErsDxhHQObZIhnbYlLkXBHHsk",
+  authDomain: "alopuff-c2542.firebaseapp.com",
+  databaseURL: "https://alopuff-c2542-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "alopuff-c2542",
+  storageBucket: "alopuff-c2542.firebasestorage.app",
+  messagingSenderId: "947923102000",
+  appId: "1:947923102000:web:7e138db8afd2eb5b7d80f5",
+  measurementId: "G-S369BJKXD0"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+const ADMIN_USER='admin', ADMIN_PASS='siparis2024';
 
 const PRODUCTS=[
   {id:'p1',name:'Vozol 20K Star',    puffs:'20.000 Çekim',price:1000,svgType:'slim',   c1:'#667eea',c2:'#764ba2',sc:'#1a1a3e',lbl:'20K'},
@@ -446,12 +292,30 @@ const PRODUCTS=[
 
 let cart={};
 let currentTab='pending';
+let allOrders = [];
+
+function vapeSVG(type,color1,color2,label,screenColor){
+  const sc=screenColor||'#1a1a2e';
+  if(type==='slim'){
+    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs><rect x="38" y="14" width="44" height="96" rx="14" fill="url(#g${color1.replace('#','')})" /><rect x="47" y="6" width="26" height="12" rx="5" fill="${color2}" opacity="0.85"/><rect x="46" y="38" width="28" height="36" rx="5" fill="${sc}"/><text x="60" y="59" text-anchor="middle" font-size="7" font-family="monospace" fill="#64d8cb" font-weight="bold">${label}</text><text x="60" y="96" text-anchor="middle" font-size="6" font-family="sans-serif" fill="#fff" opacity="0.55" font-weight="600">VOZOL</text></svg>`;
+  }
+  if(type==='box'){
+    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gb${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs><rect x="24" y="18" width="72" height="94" rx="12" fill="url(#gb${color1.replace('#','')})"/><rect x="44" y="8" width="32" height="14" rx="6" fill="${color2}" opacity="0.9"/><rect x="33" y="36" width="54" height="44" rx="7" fill="${sc}"/><text x="60" y="60" text-anchor="middle" font-size="8" font-family="monospace" fill="#64d8cb" font-weight="bold">${label}</text><text x="60" y="104" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.6" font-weight="700">VOZOL</text></svg>`;
+  }
+  if(type==='hookah'){
+    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gh${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs><rect x="42" y="8" width="36" height="10" rx="5" fill="${color2}" opacity="0.85"/><rect x="30" y="18" width="60" height="80" rx="14" fill="url(#gh${color1.replace('#','')})"/><rect x="38" y="34" width="44" height="36" rx="7" fill="${sc}"/><text x="60" y="53" text-anchor="middle" font-size="8" font-family="monospace" fill="#f0c040" font-weight="bold">${label}</text><text x="60" y="90" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.65" font-weight="700">VOZOL</text></svg>`;
+  }
+  if(type==='carton'){
+    return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gc${color1.replace('#','')}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs><rect x="18" y="22" width="84" height="86" rx="8" fill="url(#gc${color1.replace('#','')})"/><rect x="22" y="14" width="76" height="12" rx="4" fill="${color2}" opacity="0.88"/><text x="60" y="56" text-anchor="middle" font-size="8" font-family="sans-serif" fill="#fff" font-weight="800">ORIS</text><text x="60" y="82" text-anchor="middle" font-size="18">🥭</text></svg>`;
+  }
+  return `<svg viewBox="0 0 120 130"><text x="60" y="65" text-anchor="middle" font-size="40">📦</text></svg>`;
+}
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='page-order'){renderProducts();renderCart();}
-  if(id==='page-admin'){renderAdmin();}
+  if(id==='page-admin'){listenOrders();}
 }
 
 function renderProducts(){
@@ -460,20 +324,13 @@ function renderProducts(){
     const inCart=q>0;
     const svg=vapeSVG(p.svgType,p.c1,p.c2,p.lbl,p.sc);
     return `<div class="pcard${inCart?' in-cart':''}">
-      <div class="pcard-visual">
-        ${svg}
-        <div class="pcard-tag">${p.puffs}</div>
-      </div>
+      <div class="pcard-visual">${svg}<div class="pcard-tag">${p.puffs}</div></div>
       <div class="pcard-info">
         <div class="pcard-name">${p.name}</div>
         <div class="pcard-price">₺${p.price.toLocaleString('tr-TR')}</div>
       </div>
       <div class="pcard-bottom">
-        ${inCart?`<div class="pcard-qty-row">
-          <button class="pcard-qb" onclick="adj('${p.id}',-1)">−</button>
-          <span class="pcard-qn">${q}</span>
-          <button class="pcard-qb" onclick="adj('${p.id}',1)">+</button>
-        </div>`:`<button class="pcard-add-btn" onclick="adj('${p.id}',1)">+ Sepete Ekle</button>`}
+        ${inCart?`<div class="pcard-qty-row"><button class="pcard-qb" onclick="adj('${p.id}',-1)">−</button><span class="pcard-qn">${q}</span><button class="pcard-qb" onclick="adj('${p.id}',1)">+</button></div>`:`<button class="pcard-add-btn" onclick="adj('${p.id}',1)">+ Sepete Ekle</button>`}
       </div>
     </div>`;
   }).join('');
@@ -484,6 +341,7 @@ function adj(id,d){
   if(q<=0)delete cart[id]; else cart[id]=Math.min(q,99);
   renderProducts(); renderCart();
 }
+
 function clearCart(){cart={};renderProducts();renderCart();}
 
 function renderCart(){
@@ -496,47 +354,51 @@ function renderCart(){
   const total=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
   el.innerHTML=`<div class="cart-items">${items.map(p=>{
     const q=cart[p.id];
-    return `<div class="cart-row">
-      <span class="cart-row-icon">📦</span>
-      <div class="cart-row-info">
-        <div class="cart-row-name">${p.name}</div>
-        <div class="cart-row-line">${q} × ₺${p.price.toLocaleString('tr-TR')}</div>
-      </div>
-      <span class="cart-row-price">₺${(p.price*q).toLocaleString('tr-TR')}</span>
-      <button class="cart-row-del" onclick="adj('${p.id}',-${q})">×</button>
-    </div>`;
-  }).join('')}</div>
-  <div class="cart-total">
-    <span class="cart-total-label">Toplam</span>
-    <span class="cart-total-val">₺${total.toLocaleString('tr-TR')}</span>
-  </div>`;
+    return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${p.name}</div><div class="cart-row-line">${q} × ₺${p.price.toLocaleString('tr-TR')}</div></div><span class="cart-row-price">₺${(p.price*q).toLocaleString('tr-TR')}</span><button class="cart-row-del" onclick="adj('${p.id}',-${q})">×</button></div>`;
+  }).join('')}</div><div class="cart-total"><span class="cart-total-label">Toplam</span><span class="cart-total-val">₺${total.toLocaleString('tr-TR')}</span></div>`;
 }
 
+// Siparişi Realtime Database'e Yazma
 function submitOrder(){
   const name=document.getElementById('input-name').value.trim();
   const phone=document.getElementById('input-phone').value.trim();
   const eN=document.getElementById('err-name'),eP=document.getElementById('err-phone');
   eN.classList.remove('show');eP.classList.remove('show');
+  
   let ok=true;
   if(!name){eN.classList.add('show');ok=false;}
   if(!phone||!/^[0-9]{10,13}$/.test(phone.replace(/[\s\-]/g,''))){eP.classList.add('show');ok=false;}
+  
   const items=PRODUCTS.filter(p=>cart[p.id]>0);
   if(!items.length){showToast('Sepete ürün ekleyin','err');return;}
   if(!ok)return;
-  const orders=getOrders();
+
   const total=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
-  orders.push({
-    id:Date.now(),
-    num:'#'+String(orders.length+1).padStart(4,'0'),
-    items:items.map(p=>({id:p.id,name:p.name,price:p.price,qty:cart[p.id]})),
-    total,name,phone,status:'pending',
-    date:new Date().toLocaleString('tr-TR')
-  });
-  saveOrders(orders);
-  showToast('✅ Siparişiniz başarıyla gönderildi!');
-  document.getElementById('input-name').value='';
-  document.getElementById('input-phone').value='';
-  cart={};renderProducts();renderCart();
+  const orderNum = '#' + String(Math.floor(1000 + Math.random() * 9000));
+
+  const newOrder = {
+    num: orderNum,
+    items: items.map(p=>({id:p.id,name:p.name,price:p.price,qty:cart[p.id]})),
+    total: total,
+    name: name,
+    phone: phone,
+    status: 'pending',
+    date: new Date().toLocaleString('tr-TR'),
+    timestamp: Date.now()
+  };
+
+  // Realtime DB'ye push ile yeni kayıt atıyoruz
+  database.ref('orders').push(newOrder)
+    .then(() => {
+      showToast('✅ Siparişiniz başarıyla gönderildi!');
+      document.getElementById('input-name').value='';
+      document.getElementById('input-phone').value='';
+      clearCart();
+    })
+    .catch((error) => {
+      console.error(error);
+      showToast('Sipariş gönderilemedi!', 'err');
+    });
 }
 
 function showToast(msg,type=''){
@@ -546,73 +408,99 @@ function showToast(msg,type=''){
   setTimeout(()=>t.classList.remove('show'),3400);
 }
 
-function getOrders(){try{return JSON.parse(localStorage.getItem('alopuff_orders')||'[]');}catch{return[];}}
-function saveOrders(o){localStorage.setItem('alopuff_orders',JSON.stringify(o));}
-
 function doLogin(){
   const u=document.getElementById('login-user').value;
   const p=document.getElementById('login-pass').value;
   const err=document.getElementById('login-err');
   if(u===ADMIN_USER&&p===ADMIN_PASS){
-    sessionStorage.setItem('ap_auth','1');err.style.display='none';showPage('page-admin');
+    sessionStorage.setItem('ap_auth','1');err.style.display='none';
+    showPage('page-admin');
   } else {
     err.textContent='Kullanıcı adı veya şifre hatalı.';err.style.display='block';
     document.getElementById('login-pass').value='';
   }
 }
+
 function logout(){sessionStorage.removeItem('ap_auth');showPage('page-landing');}
 
 function switchTab(tab,btn){
   currentTab=tab;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');renderAdmin();
+  btn.classList.add('active');
+  renderAdmin();
+}
+
+// Realtime Database'den Anlık Okuma (Dinleme)
+function listenOrders() {
+  database.ref('orders').on('value', snapshot => {
+    allOrders = [];
+    const data = snapshot.val();
+    if(data) {
+      Object.keys(data).forEach(key => {
+        allOrders.push({
+          firebaseId: key, // Realtime DB benzersiz anahtarı (ID)
+          ...data[key]
+        });
+      });
+      // Eskiden yeniye sıralama
+      allOrders.sort((a, b) => b.timestamp - a.timestamp);
+    }
+    renderAdmin();
+  });
 }
 
 function renderAdmin(){
-  const orders=getOrders();
-  const by=s=>orders.filter(o=>o.status===s);
+  const by=s=>allOrders.filter(o=>o.status===s);
+  
   document.getElementById('cnt-pending').textContent=by('pending').length;
   document.getElementById('cnt-done').textContent=by('done').length;
   document.getElementById('cnt-cancelled').textContent=by('cancelled').length;
-  const list=by(currentTab).slice().reverse();
+  
+  const list=by(currentTab);
   const stack=document.getElementById('orders-stack');
+  
   if(!list.length){
     const m={pending:'Bekleyen sipariş yok',done:'Tamamlanan sipariş yok',cancelled:'İptal edilen sipariş yok'};
     stack.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>${m[currentTab]}</p></div>`;return;
   }
+  
   const sm={pending:['st-pending','Bekliyor'],done:['st-done','Tamamlandı'],cancelled:['st-cancelled','İptal']};
+  
   stack.innerHTML=list.map(o=>{
     const [cls,lbl]=sm[o.status];
     const ip=o.status==='pending';
     const pl=o.items.map(i=>`${i.name} × ${i.qty}`).join(' · ');
     return `<div class="order-card">
       <div class="order-info">
-        <div class="order-top">
-          <span class="order-num">${o.num}</span>
-          <span class="order-status ${cls}">${lbl}</span>
-          <span style="font-size:11px;color:var(--text-3);margin-left:auto;">${o.date}</span>
-        </div>
+        <div class="order-top"><span class="order-num">${o.num}</span><span class="order-status ${cls}">${lbl}</span><span style="font-size:11px;color:var(--text-3);margin-left:auto;">${o.date}</span></div>
         <div class="order-products">${pl}</div>
         <div class="order-meta"><b>${o.name}</b> &nbsp;·&nbsp; ${o.phone}</div>
         <div class="order-total-admin">Toplam: ₺${o.total.toLocaleString('tr-TR')}</div>
       </div>
       <div class="order-actions">
-        <button class="btn-act ok" onclick="setStatus(${o.id},'done')" ${!ip?'disabled':''} title="Tamamlandı">✅</button>
-        <button class="btn-act no" onclick="setStatus(${o.id},'cancelled')" ${!ip?'disabled':''} title="İptal">❌</button>
+        <button class="btn-act ok" onclick="setStatus('${o.firebaseId}','done')" ${!ip?'disabled':''} title="Tamamlandı">✅</button>
+        <button class="btn-act no" onclick="setStatus('${o.firebaseId}','cancelled')" ${!ip?'disabled':''} title="İptal">❌</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function setStatus(id,status){
-  const orders=getOrders();
-  const idx=orders.findIndex(o=>o.id===id);
-  if(idx===-1)return;
-  orders[idx].status=status;saveOrders(orders);renderAdmin();
+// Durum Güncelleme (Tamamlandı veya İptal)
+function setStatus(firebaseId, newStatus){
+  database.ref('orders/' + firebaseId).update({
+    status: newStatus
+  }).catch(error => {
+    console.error("Güncellenemedi:", error);
+    alert("Durum güncellenirken hata oluştu!");
+  });
 }
 
-if(sessionStorage.getItem('ap_auth')==='1')showPage('page-admin');
-renderProducts();renderCart();
+if(sessionStorage.getItem('ap_auth')==='1') {
+  showPage('page-admin');
+}
+
+renderProducts();
+renderCart();
 </script>
 </body>
 </html>
