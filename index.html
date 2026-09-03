@@ -37,6 +37,19 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 #toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--success);color:#fff;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;z-index:9999;transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 8px 24px rgba(16,185,129,0.3);white-space:nowrap;}
 #toast.show{transform:translateX(-50%) translateY(0);}
 #toast.err{background:var(--danger);box-shadow:0 8px 24px rgba(239,68,68,0.3);}
+
+/* Order success modal (centered, bigger) */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,20,35,0.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
+.modal-overlay.show{opacity:1;pointer-events:auto;}
+.order-success-modal{background:var(--white);border-radius:22px;padding:44px 38px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.25);transform:scale(0.85);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.modal-overlay.show .order-success-modal{transform:scale(1);}
+.osm-icon{width:74px;height:74px;background:var(--success-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 22px;}
+.osm-title{font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;color:var(--text);}
+.osm-sub{font-size:13px;color:var(--text-2);font-weight:600;margin-bottom:6px;}
+.osm-num{font-size:32px;font-weight:800;color:var(--accent-dark);letter-spacing:-0.5px;margin-bottom:26px;font-family:monospace;}
+.osm-btn{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;border:none;padding:14px 42px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(74,144,217,0.35);transition:all 0.2s;}
+.osm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(74,144,217,0.45);}
+
 #page-landing{background:linear-gradient(145deg,#e8f2fd 0%,#f4f7fb 50%,#edf4fc 100%);align-items:center;justify-content:center;flex-direction:column;}
 .land-nav{position:fixed;top:0;left:0;right:0;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:100;}
 .logo{font-size:22px;font-weight:800;letter-spacing:-0.8px;display:flex;align-items:center;gap:6px;}
@@ -45,7 +58,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;margin-bottom:2px;}
 .btn-admin-sm{background:var(--white);border:1px solid var(--border);color:var(--text-2);padding:8px 18px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.18s;font-family:inherit;}
 .btn-admin-sm:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
-.land-hero{text-align:center;padding:120px 32px 60px;max-width:700px;}
+.land-hero{text-align:center;padding:120px 32px 100px;max-width:700px;}
 .land-chip{display:inline-flex;align-items:center;gap:7px;background:var(--accent-light);color:var(--accent-dark);border:1px solid var(--accent-mid);padding:6px 18px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:28px;}
 .land-h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:18px;color:var(--text);}
 .land-h1 em{font-style:normal;color:var(--accent);}
@@ -53,9 +66,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-cta{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);color:#fff;border:none;padding:16px 42px;border-radius:13px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.22s;font-family:inherit;box-shadow:0 6px 20px rgba(74,144,217,0.4);}
 .btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(74,144,217,0.5);}
 .btn-cta:active{transform:translateY(0);}
-.land-features{display:flex;gap:10px;margin-top:48px;flex-wrap:wrap;justify-content:center;}
-.feat{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);font-weight:500;}
-.feat span{font-size:15px;}
 #page-order{flex-direction:column;background:var(--bg);}
 .order-nav{background:var(--white);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:16px;}
 .btn-back{background:var(--bg);border:1px solid var(--border);color:var(--text-2);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;font-family:inherit;}
@@ -96,9 +106,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .cart-row-price{font-size:13px;font-weight:800;color:var(--accent-dark);flex-shrink:0;}
 .cart-row-del{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:17px;padding:2px 5px;border-radius:5px;transition:all 0.15s;flex-shrink:0;line-height:1;}
 .cart-row-del:hover{background:var(--danger-bg);color:var(--danger);}
-.cart-total{background:linear-gradient(135deg,var(--accent-light),#f0f7ff);border-radius:11px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border:1px solid var(--accent-mid);}
+.cart-total{background:linear-gradient(135deg,var(--accent-light),#f0f7ff);border-radius:11px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border:1px solid var(--accent-mid);}
 .cart-total-label{font-size:13px;color:var(--text-2);font-weight:600;}
 .cart-total-val{font-size:22px;font-weight:800;color:var(--accent-dark);letter-spacing:-0.5px;}
+.cart-total-old{font-size:12.5px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-bottom:2px;}
+.coupon-applied-note{font-size:11.5px;color:var(--success);font-weight:700;text-align:center;margin-bottom:16px;}
 .divider{height:1px;background:var(--border);margin:18px 0;}
 .form-group{margin-bottom:14px;}
 .form-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:7px;display:block;}
@@ -107,6 +119,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .form-input::placeholder{color:var(--text-3);}
 .form-error{color:var(--danger);font-size:11px;margin-top:5px;display:none;font-weight:600;}
 .form-error.show{display:block;}
+.coupon-msg{font-size:11.5px;font-weight:700;margin-top:7px;min-height:14px;}
+.coupon-msg.err{color:var(--danger);}
+.coupon-msg.ok{color:var(--success);}
+.btn-coupon-check{width:100%;background:var(--surface);border:1.5px solid var(--border-strong);color:var(--text);padding:10px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;margin-top:9px;transition:all 0.15s;font-family:inherit;}
+.btn-coupon-check:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-coupon-check:disabled{opacity:0.6;cursor:not-allowed;}
 .checkbox-group{display:flex;align-items:center;gap:8px;margin-top:8px;margin-bottom:14px;cursor:pointer;}
 .checkbox-group input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;}
 .checkbox-group label{font-size:12px;color:var(--text-2);font-weight:500;cursor:pointer;}
@@ -132,12 +150,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .admin-pill{background:var(--accent-light);color:var(--accent-dark);border:1px solid var(--accent-mid);padding:3px 12px;border-radius:50px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;}
 .btn-logout{background:var(--bg);border:1px solid var(--border);color:var(--text-2);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;font-family:inherit;}
 .btn-logout:hover{background:var(--danger-bg);border-color:var(--danger);color:var(--danger);}
-.admin-tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;gap:4px;}
-.tab-btn{background:transparent;border:none;color:var(--text-3);padding:14px 18px;cursor:pointer;font-size:14px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.18s;display:flex;align-items:center;gap:8px;font-family:inherit;}
+.admin-toolbar{background:var(--white);border-bottom:1px solid var(--border);}
+.admin-tabs{display:flex;padding:0 28px;gap:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.admin-tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:transparent;border:none;color:var(--text-3);padding:14px 18px;cursor:pointer;font-size:14px;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.18s;display:flex;align-items:center;gap:8px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
 .tab-btn:hover{color:var(--text-2);}
 .tab-btn.active{color:var(--accent-dark);border-bottom-color:var(--accent);}
 .tab-count{background:var(--surface);color:var(--text-3);border-radius:50px;font-size:11px;font-weight:800;padding:2px 9px;min-width:22px;text-align:center;}
 .tab-btn.active .tab-count{background:var(--accent-light);color:var(--accent-dark);}
+.admin-search-wrap{padding:12px 28px 16px;}
+.admin-search-input{max-width:320px;}
 .admin-content{flex:1;padding:28px;overflow-y:auto;}
 .orders-stack{display:flex;flex-direction:column;gap:10px;max-width:920px;}
 .order-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px 20px;display:flex;align-items:flex-start;gap:16px;box-shadow:var(--shadow);transition:box-shadow 0.15s;}
@@ -163,17 +185,54 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .empty-state{text-align:center;padding:60px 20px;color:var(--text-3);}
 .empty-state .ei{font-size:44px;margin-bottom:14px;opacity:0.5;}
 .empty-state p{font-size:14px;}
+
+/* Coupons */
+.coupon-form-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow-card);max-width:640px;margin-bottom:26px;}
+.coupon-form-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;}
+.coupon-card{background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow);max-width:640px;}
+.coupon-row{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;}
+.coupon-main{flex:1;min-width:0;}
+.coupon-code{font-size:14px;font-weight:800;letter-spacing:-0.2px;margin-bottom:4px;}
+.coupon-meta{font-size:12px;color:var(--text-2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.coupon-badge{padding:2px 9px;border-radius:50px;font-size:10px;font-weight:800;}
+.coupon-badge.active{background:var(--success-bg);color:var(--success);}
+.coupon-badge.frozen{background:var(--accent-light);color:var(--accent-dark);}
+.coupon-badge.exhausted{background:var(--danger-bg);color:var(--danger);}
+.coupon-actions{display:flex;gap:6px;flex-shrink:0;}
+.coupon-chevron{font-size:14px;color:var(--text-3);transition:transform 0.2s;flex-shrink:0;}
+.coupon-chevron.open{transform:rotate(180deg);}
+.coupon-expand{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.25s ease;background:var(--surface);}
+.coupon-expand.open{grid-template-rows:1fr;}
+.coupon-expand-inner{overflow:hidden;}
+.coupon-used-title{font-size:11px;font-weight:700;color:var(--text-3);padding:12px 18px 4px;}
+.coupon-user{font-size:13px;color:var(--text);padding:5px 18px;font-weight:500;}
+.coupon-user.empty{color:var(--text-3);font-style:italic;}
+
 @media(max-width:780px){
   .order-body{grid-template-columns:1fr;padding:16px;}
   .cart-panel{position:static;}
   .land-nav{padding:14px 20px;}
-  .land-hero{padding:90px 20px 40px;}
+  .land-hero{padding:90px 20px 60px;}
   .product-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr));}
+  .admin-tabs{padding:0 14px;}
+  .admin-search-wrap{padding:10px 14px 14px;}
+  .admin-search-input{max-width:100%;}
+  .coupon-form-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 <div id="toast"></div>
+
+<div class="modal-overlay" id="order-success-overlay" onclick="if(event.target===this)closeOrderSuccess()">
+  <div class="order-success-modal">
+    <div class="osm-icon">✅</div>
+    <div class="osm-title">Siparişiniz Oluşturuldu!</div>
+    <div class="osm-sub">Sipariş Numaranız</div>
+    <div class="osm-num" id="osm-num">#0000</div>
+    <button class="osm-btn" onclick="closeOrderSuccess()">Tamam</button>
+  </div>
+</div>
 
 <div class="page active" id="page-landing">
   <nav class="land-nav">
@@ -183,13 +242,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <div class="land-hero">
     <div class="land-chip">✦ Sipariş</div>
     <h1 class="land-h1">En iyi *'lar<br><em>kapına gelsin</em></h1>
-    <p class="land-sub">Vozol ve daha fazlasını keşfet. Ürünü seç, adedini belirle, siparişini ver.</p>
+    <p class="land-sub">Daha fazlasını keşfet. Ürünü seç, adedini belirle, siparişini ver.</p>
     <button class="btn-cta" onclick="showPage('page-order')">Sipariş Ver →</button>
-    <div class="land-features">
-      <div class="feat"><span>⚡</span>Hızlı sipariş</div>
-      <div class="feat"><span>📦</span>Geniş stok</div>
-      <div class="feat"><span>🚀</span>Hızlı teslimat</div>
-    </div>
   </div>
 </div>
 
@@ -223,6 +277,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="form-group">
         <label class="form-label">Not</label>
         <input class="form-input" type="text" id="input-note" placeholder="Boş bırakabilirsiniz.">
+      </div>
+      <div class="form-group">
+        <label class="form-label">İndirim Kodu</label>
+        <input class="form-input" type="text" id="input-coupon" placeholder="Kodunuzu girin (opsiyonel)" oninput="onCouponInputChange()">
+        <div class="coupon-msg" id="coupon-msg"></div>
+        <button class="btn-coupon-check" id="btn-coupon-check" onclick="checkCoupon()">İndirimi Kontrol Et</button>
       </div>
       <div class="checkbox-group">
         <input type="checkbox" id="input-sms" onchange="renderCart()">
@@ -260,13 +320,41 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
     <button class="btn-logout" onclick="logout()">Çıkış</button>
   </nav>
-  <div class="admin-tabs">
-    <button class="tab-btn active" onclick="switchTab('pending',this)">⏳ Bekleyen <span class="tab-count" id="cnt-pending">0</span></button>
-    <button class="tab-btn" onclick="switchTab('done',this)">✅ Tamamlanan <span class="tab-count" id="cnt-done">0</span></button>
-    <button class="tab-btn" onclick="switchTab('cancelled',this)">❌ İptal <span class="tab-count" id="cnt-cancelled">0</span></button>
+  <div class="admin-toolbar">
+    <div class="admin-tabs" id="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('pending',this)">⏳ Bekleyen <span class="tab-count" id="cnt-pending">0</span></button>
+      <button class="tab-btn" onclick="switchTab('done',this)">✅ Tamamlanan <span class="tab-count" id="cnt-done">0</span></button>
+      <button class="tab-btn" onclick="switchTab('cancelled',this)">❌ İptal <span class="tab-count" id="cnt-cancelled">0</span></button>
+      <button class="tab-btn" onclick="switchTab('coupons',this)">🎟️ Kuponlar <span class="tab-count" id="cnt-coupons">0</span></button>
+    </div>
+    <div class="admin-search-wrap" id="admin-search-wrap">
+      <input class="form-input admin-search-input" type="text" id="admin-search" placeholder="🔍 Sipariş no ile ara (örn: 9323)" oninput="renderAdmin()">
+    </div>
   </div>
   <div class="admin-content">
     <div class="orders-stack" id="orders-stack"></div>
+    <div class="coupons-panel" id="coupons-panel" style="display:none;">
+      <div class="coupon-form-card">
+        <div class="section-label" style="margin-bottom:14px;">Yeni Kupon Oluştur</div>
+        <div class="coupon-form-grid">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Kupon Kodu</label>
+            <input class="form-input" type="text" id="new-coupon-code" placeholder="ÖRN: INDIRIM100">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">İndirim (₺)</label>
+            <input class="form-input" type="number" id="new-coupon-amount" placeholder="100" min="1">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Kullanım Hakkı</label>
+            <input class="form-input" type="number" id="new-coupon-limit" placeholder="1" min="1">
+          </div>
+        </div>
+        <button class="btn-submit" style="margin-top:16px;" onclick="createCoupon()">Kupon Oluştur</button>
+      </div>
+      <div class="section-label">Aktif Kuponlar</div>
+      <div id="coupons-list"></div>
+    </div>
   </div>
 </div>
 
@@ -304,6 +392,10 @@ const PRODUCTS=[
 let cart={};
 let currentTab='pending';
 let allOrders = [];
+let allCoupons = [];
+let appliedCoupon = null;
+let expandedCoupon = null;
+let osmTimer = null;
 
 function vapeSVG(type,color1,color2,label,screenColor){
   const sc=screenColor||'#1a1a2e';
@@ -326,7 +418,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='page-order'){renderProducts();renderCart();}
-  if(id==='page-admin'){listenOrders();}
+  if(id==='page-admin'){listenOrders();listenCoupons();}
 }
 
 function renderProducts(){
@@ -353,7 +445,16 @@ function adj(id,d){
   renderProducts(); renderCart();
 }
 
-function clearCart(){cart={};renderProducts();renderCart();}
+function clearCart(){
+  cart={};
+  appliedCoupon=null;
+  const cm=document.getElementById('coupon-msg');
+  if(cm){cm.textContent='';cm.className='coupon-msg';}
+  const ci=document.getElementById('input-coupon');
+  if(ci) ci.value='';
+  renderProducts();
+  renderCart();
+}
 
 function renderCart(){
   const el=document.getElementById('cart-display');
@@ -364,16 +465,86 @@ function renderCart(){
     el.innerHTML='<div class="cart-empty">Henüz ürün eklenmedi<br><small>Soldan ürün seçin</small></div>';
     return;
   }
-  
-  const total=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
-  const totalStr = smsConsent ? '₺****' : `₺${total.toLocaleString('tr-TR')}`;
 
-  el.innerHTML=`<div class="cart-items">${items.map(p=>{
+  const subtotal=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
+  const discount=appliedCoupon?Math.min(appliedCoupon.amount,subtotal):0;
+  const total=subtotal-discount;
+
+  const itemsHtml=items.map(p=>{
     const q=cart[p.id];
-    const rowPriceStr = smsConsent ? '₺****' : `₺${(p.price*q).toLocaleString('tr-TR')}`;
-    const rowLineStr = smsConsent ? `${q} × ₺****` : `${q} × ₺${p.price.toLocaleString('tr-TR')}`;
+    const rowPriceStr=smsConsent?'₺****':`₺${(p.price*q).toLocaleString('tr-TR')}`;
+    const rowLineStr=smsConsent?`${q} × ₺****`:`${q} × ₺${p.price.toLocaleString('tr-TR')}`;
     return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${p.name}</div><div class="cart-row-line">${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adj('${p.id}',-${q})">×</button></div>`;
-  }).join('')}</div><div class="cart-total"><span class="cart-total-label">Toplam</span><span class="cart-total-val">${totalStr}</span></div>`;
+  }).join('');
+
+  let totalHtml;
+  if(smsConsent){
+    totalHtml=`<span class="cart-total-val">₺****</span>`;
+  } else if(discount>0){
+    totalHtml=`<div style="text-align:right;"><div class="cart-total-old">₺${subtotal.toLocaleString('tr-TR')}</div><div class="cart-total-val">₺${total.toLocaleString('tr-TR')}</div></div>`;
+  } else {
+    totalHtml=`<span class="cart-total-val">₺${subtotal.toLocaleString('tr-TR')}</span>`;
+  }
+
+  const couponNote=(discount>0 && !smsConsent)?`<div class="coupon-applied-note">🎉 ${appliedCoupon.code} kodu ile ₺${discount.toLocaleString('tr-TR')} indirim uygulandı</div>`:'';
+
+  el.innerHTML=`<div class="cart-items">${itemsHtml}</div><div class="cart-total"><span class="cart-total-label">Toplam</span>${totalHtml}</div>${couponNote}`;
+}
+
+function onCouponInputChange(){
+  if(appliedCoupon){
+    appliedCoupon=null;
+    const cm=document.getElementById('coupon-msg');
+    cm.textContent='';cm.className='coupon-msg';
+    renderCart();
+  }
+}
+
+function checkCoupon(){
+  const codeRaw=document.getElementById('input-coupon').value.trim();
+  const msgEl=document.getElementById('coupon-msg');
+  const btn=document.getElementById('btn-coupon-check');
+
+  if(!codeRaw){
+    msgEl.textContent='Lütfen bir kod girin.';
+    msgEl.className='coupon-msg err';
+    return;
+  }
+
+  const code=codeRaw.toUpperCase();
+  btn.disabled=true;
+  const originalText=btn.textContent;
+  btn.textContent='Kontrol ediliyor...';
+
+  database.ref('coupons').once('value').then(snapshot=>{
+    const data=snapshot.val();
+    let found=null,foundId=null;
+    if(data){
+      Object.keys(data).forEach(key=>{
+        if(data[key].code && data[key].code.toUpperCase()===code){
+          found=data[key];foundId=key;
+        }
+      });
+    }
+    const usable = found && !found.frozen && (found.usedCount||0) < found.limit;
+    if(!usable){
+      appliedCoupon=null;
+      msgEl.textContent='Maalesef indirimin yok kardeşim benim.';
+      msgEl.className='coupon-msg err';
+    } else {
+      appliedCoupon={code:found.code,amount:found.amount,docId:foundId};
+      msgEl.textContent='İndirimin uygulandı kardeşim benim.';
+      msgEl.className='coupon-msg ok';
+    }
+    renderCart();
+  }).catch(err=>{
+    console.error(err);
+    msgEl.textContent='Bir hata oluştu, tekrar deneyin.';
+    msgEl.className='coupon-msg err';
+  }).finally(()=>{
+    btn.disabled=false;
+    btn.textContent=originalText;
+  });
 }
 
 function submitOrder(){
@@ -381,52 +552,99 @@ function submitOrder(){
   const phone=document.getElementById('input-phone').value.trim();
   const note=document.getElementById('input-note').value.trim();
   const smsConsent=document.getElementById('input-sms').checked;
-  
+
   const eN=document.getElementById('err-name'),eP=document.getElementById('err-phone');
   eN.classList.remove('show');eP.classList.remove('show');
-  
+
   let ok=true;
   if(!name){eN.classList.add('show');ok=false;}
   if(!phone||!/^[0-9]{10,13}$/.test(phone.replace(/[\s\-]/g,''))){eP.classList.add('show');ok=false;}
-  
+
   const items=PRODUCTS.filter(p=>cart[p.id]>0);
   if(!items.length){showToast('Sepete ürün ekleyin','err');return;}
   if(!ok)return;
 
-  const total=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
+  const subtotal=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
+  const discount=appliedCoupon?Math.min(appliedCoupon.amount,subtotal):0;
+  const total=subtotal-discount;
   const orderNum = '#' + String(Math.floor(1000 + Math.random() * 9000));
 
-  const newOrder = {
-    num: orderNum,
-    items: items.map(p=>({
-      id: p.id,
-      name: p.name,
-      price: smsConsent ? '****' : p.price,
-      qty: cart[p.id]
-    })),
-    total: smsConsent ? '****' : total,
-    name: name,
-    phone: phone,
-    note: note,
-    smsConsent: smsConsent,
-    status: 'pending',
-    date: new Date().toLocaleString('tr-TR'),
-    timestamp: Date.now()
-  };
+  function finalizeOrder(){
+    const newOrder = {
+      num: orderNum,
+      items: items.map(p=>({
+        id: p.id,
+        name: p.name,
+        price: smsConsent ? '****' : p.price,
+        qty: cart[p.id]
+      })),
+      subtotal: smsConsent ? '****' : subtotal,
+      total: smsConsent ? '****' : total,
+      couponCode: appliedCoupon ? appliedCoupon.code : null,
+      couponAmount: appliedCoupon ? (smsConsent ? '****' : discount) : null,
+      name: name,
+      phone: phone,
+      note: note,
+      smsConsent: smsConsent,
+      status: 'pending',
+      date: new Date().toLocaleString('tr-TR'),
+      timestamp: Date.now()
+    };
 
-  database.ref('orders').push(newOrder)
-    .then(() => {
-      showToast('✅ Siparişiniz başarıyla gönderildi!');
-      document.getElementById('input-name').value='';
-      document.getElementById('input-phone').value='';
-      document.getElementById('input-note').value='';
-      document.getElementById('input-sms').checked=false;
-      clearCart();
-    })
-    .catch((error) => {
-      console.error(error);
-      showToast('Sipariş gönderilemedi!', 'err');
+    database.ref('orders').push(newOrder)
+      .then(() => {
+        document.getElementById('input-name').value='';
+        document.getElementById('input-phone').value='';
+        document.getElementById('input-note').value='';
+        document.getElementById('input-sms').checked=false;
+        clearCart();
+        showOrderSuccessModal(orderNum);
+      })
+      .catch((error) => {
+        console.error(error);
+        showToast('Sipariş gönderilemedi!', 'err');
+      });
+  }
+
+  if(appliedCoupon){
+    const couponRef = database.ref('coupons/' + appliedCoupon.docId);
+    couponRef.transaction(cur=>{
+      if(!cur) return;
+      if(cur.frozen) return;
+      const used = cur.usedCount||0;
+      if(used >= cur.limit) return;
+      cur.usedCount = used+1;
+      cur.usedBy = cur.usedBy || [];
+      cur.usedBy.push(name);
+      return cur;
+    }).then(result=>{
+      if(!result.committed){
+        showToast('İndirim kodu artık geçerli değil','err');
+        appliedCoupon=null;
+        renderCart();
+        return;
+      }
+      finalizeOrder();
+    }).catch(err=>{
+      console.error(err);
+      showToast('Sipariş gönderilemedi!','err');
     });
+  } else {
+    finalizeOrder();
+  }
+}
+
+function showOrderSuccessModal(num){
+  document.getElementById('osm-num').textContent = num;
+  const ov = document.getElementById('order-success-overlay');
+  ov.classList.add('show');
+  clearTimeout(osmTimer);
+  osmTimer = setTimeout(closeOrderSuccess, 6000);
+}
+
+function closeOrderSuccess(){
+  document.getElementById('order-success-overlay').classList.remove('show');
+  clearTimeout(osmTimer);
 }
 
 function showToast(msg,type=''){
@@ -455,7 +673,22 @@ function switchTab(tab,btn){
   currentTab=tab;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderAdmin();
+
+  const ordersStack=document.getElementById('orders-stack');
+  const couponsPanel=document.getElementById('coupons-panel');
+  const searchWrap=document.getElementById('admin-search-wrap');
+
+  if(tab==='coupons'){
+    ordersStack.style.display='none';
+    couponsPanel.style.display='block';
+    searchWrap.style.display='none';
+    renderCoupons();
+  } else {
+    ordersStack.style.display='flex';
+    couponsPanel.style.display='none';
+    searchWrap.style.display='block';
+    renderAdmin();
+  }
 }
 
 function listenOrders() {
@@ -477,25 +710,36 @@ function listenOrders() {
 
 function renderAdmin(){
   const by=s=>allOrders.filter(o=>o.status===s);
-  
+
   document.getElementById('cnt-pending').textContent=by('pending').length;
   document.getElementById('cnt-done').textContent=by('done').length;
   document.getElementById('cnt-cancelled').textContent=by('cancelled').length;
-  
-  const list=by(currentTab);
+
+  const searchInput=document.getElementById('admin-search');
+  const searchVal=searchInput?searchInput.value.trim().replace('#',''):'';
+  let list, searching=false;
+
+  if(searchVal){
+    searching=true;
+    list=allOrders.filter(o=>o.num.replace('#','').includes(searchVal));
+  } else {
+    list=by(currentTab);
+  }
+
   const stack=document.getElementById('orders-stack');
-  
+
   if(!list.length){
     const m={pending:'Bekleyen sipariş yok',done:'Tamamlanan sipariş yok',cancelled:'İptal edilen sipariş yok'};
-    stack.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>${m[currentTab]}</p></div>`;return;
+    const msg=searching?'Bu numarayla eşleşen sipariş bulunamadı':(m[currentTab]||'Sipariş yok');
+    stack.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>${msg}</p></div>`;return;
   }
-  
+
   const sm={pending:['st-pending','Bekliyor'],done:['st-done','Tamamlandı'],cancelled:['st-cancelled','İptal']};
-  
+
   stack.innerHTML=list.map(o=>{
-    const [cls,lbl]=sm[o.status];
+    const [cls,lbl]=sm[o.status]||['st-pending','Bekliyor'];
     const ip=o.status==='pending';
-    
+
     const pl=o.items.map(i=>{
       const linePrice = i.price === '****' ? '₺****' : `₺${(i.price * i.qty).toLocaleString('tr-TR')}`;
       return `${i.name} (${i.qty} × ${i.price === '****' ? '₺****' : `₺${i.price.toLocaleString('tr-TR')}`}) - <span style="color:var(--accent-dark);font-weight:700;">${linePrice}</span>`;
@@ -503,15 +747,28 @@ function renderAdmin(){
 
     const smsText = o.smsConsent ? ' &nbsp;·&nbsp; <span style="color:var(--success);font-weight:600;">📱 SMS İstiyor</span>' : '';
     const noteSection = o.note ? `<div class="order-note"><b>Not:</b> ${o.note}</div>` : '';
-    const totalStr = o.total === '****' ? '₺****' : `₺${o.total.toLocaleString('tr-TR')}`;
-    
+
+    let totalSection;
+    if(o.total === '****'){
+      totalSection = `<div class="order-total-admin">Toplam: ₺****</div>`;
+    } else if(o.couponCode){
+      const sub = o.subtotal!==undefined && o.subtotal!==null ? o.subtotal : o.total;
+      totalSection = `<div class="order-total-admin">
+        <div style="font-size:12px;color:var(--text-3);text-decoration:line-through;font-weight:600;">Ürün Toplamı: ₺${Number(sub).toLocaleString('tr-TR')}</div>
+        <div style="font-size:12px;color:var(--success);font-weight:700;margin:2px 0;">🎟️ İndirim Kodu: ${o.couponCode} (-₺${Number(o.couponAmount).toLocaleString('tr-TR')})</div>
+        <div>Toplam: ₺${Number(o.total).toLocaleString('tr-TR')}</div>
+      </div>`;
+    } else {
+      totalSection = `<div class="order-total-admin">Toplam: ₺${Number(o.total).toLocaleString('tr-TR')}</div>`;
+    }
+
     return `<div class="order-card">
       <div class="order-info">
         <div class="order-top"><span class="order-num">${o.num}</span><span class="order-status ${cls}">${lbl}</span><span style="font-size:11px;color:var(--text-3);margin-left:auto;">${o.date}</span></div>
         <div class="order-products" style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px;">${pl}</div>
         <div class="order-meta"><b>${o.name}</b> &nbsp;·&nbsp; ${o.phone} ${smsText}</div>
         ${noteSection}
-        <div class="order-total-admin">Toplam: ${totalStr}</div>
+        ${totalSection}
       </div>
       <div class="order-actions">
         <button class="btn-act ok" onclick="setStatus('${o.firebaseId}','done')" ${!ip?'disabled':''} title="Tamamlandı">✅</button>
@@ -527,7 +784,7 @@ function setStatus(firebaseId, newStatus){
     status: newStatus
   }).catch(error => {
     console.error("Güncellenemedi:", error);
-    alert("Durum güncellenirken hata oluştu!");
+    showToast('Durum güncellenirken hata oluştu!','err');
   });
 }
 
@@ -541,6 +798,111 @@ function deleteOrder(firebaseId){
         console.error("Silinemedi:", error);
         showToast('Silme başarısız', 'err');
       });
+  }
+}
+
+/* ---------- Coupons (Admin) ---------- */
+
+function listenCoupons(){
+  database.ref('coupons').on('value', snapshot=>{
+    allCoupons=[];
+    const data=snapshot.val();
+    if(data){
+      Object.keys(data).forEach(key=>{
+        allCoupons.push({firebaseId:key, ...data[key]});
+      });
+      allCoupons.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    }
+    const cnt=document.getElementById('cnt-coupons');
+    if(cnt) cnt.textContent=allCoupons.length;
+    if(currentTab==='coupons') renderCoupons();
+  });
+}
+
+function createCoupon(){
+  const codeEl=document.getElementById('new-coupon-code');
+  const amountEl=document.getElementById('new-coupon-amount');
+  const limitEl=document.getElementById('new-coupon-limit');
+  const code=codeEl.value.trim().toUpperCase();
+  const amount=parseInt(amountEl.value);
+  const limit=parseInt(limitEl.value);
+
+  if(!code){showToast('Kupon kodu girin','err');return;}
+  if(!amount||amount<=0){showToast('Geçerli bir indirim miktarı girin','err');return;}
+  if(!limit||limit<=0){showToast('Geçerli bir kullanım hakkı girin','err');return;}
+
+  const exists=allCoupons.some(c=>c.code && c.code.toUpperCase()===code);
+  if(exists){showToast('Bu kod zaten kullanılıyor','err');return;}
+
+  database.ref('coupons').push({
+    code:code,
+    amount:amount,
+    limit:limit,
+    usedCount:0,
+    frozen:false,
+    usedBy:[],
+    createdAt:Date.now()
+  }).then(()=>{
+    showToast('✅ Kupon oluşturuldu');
+    codeEl.value='';amountEl.value='';limitEl.value='';
+  }).catch(err=>{
+    console.error(err);
+    showToast('Kupon oluşturulamadı','err');
+  });
+}
+
+function renderCoupons(){
+  const list=document.getElementById('coupons-list');
+  if(!allCoupons.length){
+    list.innerHTML='<div class="empty-state"><div class="ei">🎟️</div><p>Henüz kupon oluşturulmadı</p></div>';
+    return;
+  }
+  list.innerHTML=allCoupons.map(c=>{
+    const limit=c.limit||0;
+    const used=c.usedCount||0;
+    const remaining=Math.max(limit-used,0);
+    const exhausted=remaining<=0;
+    const isExpanded=expandedCoupon===c.firebaseId;
+    const usedByList=c.usedBy||[];
+    const statusBadge = c.frozen ? '<span class="coupon-badge frozen">❄️ Donduruldu</span>' : (exhausted ? '<span class="coupon-badge exhausted">Tükendi</span>' : '<span class="coupon-badge active">Aktif</span>');
+    return `<div class="coupon-card">
+      <div class="coupon-row" onclick="toggleCoupon('${c.firebaseId}')">
+        <div class="coupon-main">
+          <div class="coupon-code">🎟️ ${c.code}</div>
+          <div class="coupon-meta">₺${Number(c.amount).toLocaleString('tr-TR')} indirim &nbsp;·&nbsp; Kalan: ${remaining}/${limit} kullanım ${statusBadge}</div>
+        </div>
+        <div class="coupon-actions" onclick="event.stopPropagation()">
+          <button class="btn-act" onclick="toggleFreeze('${c.firebaseId}', ${!!c.frozen})" title="${c.frozen?'Aktifleştir':'Dondur'}">${c.frozen?'▶️':'❄️'}</button>
+          <button class="btn-act del" onclick="deleteCoupon('${c.firebaseId}')" title="Sil">🗑️</button>
+        </div>
+        <div class="coupon-chevron ${isExpanded?'open':''}">▾</div>
+      </div>
+      <div class="coupon-expand ${isExpanded?'open':''}">
+        <div class="coupon-expand-inner">
+          <div class="coupon-used-title">Kuponu kullanan kullanıcılar:</div>
+          ${usedByList.length ? usedByList.map(n=>`<div class="coupon-user">${n}</div>`).join('') : '<div class="coupon-user empty">Henüz kimse kullanmadı</div>'}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCoupon(id){
+  expandedCoupon = expandedCoupon===id ? null : id;
+  renderCoupons();
+}
+
+function toggleFreeze(id, currentlyFrozen){
+  database.ref('coupons/'+id).update({frozen: !currentlyFrozen}).then(()=>{
+    showToast(currentlyFrozen?'Kupon aktifleştirildi':'Kupon donduruldu');
+  }).catch(err=>{console.error(err);showToast('İşlem başarısız','err');});
+}
+
+function deleteCoupon(id){
+  if(confirm('Bu kuponu kalıcı olarak silmek istediğinize emin misiniz?')){
+    database.ref('coupons/'+id).remove().then(()=>{
+      showToast('Kupon silindi');
+    }).catch(err=>{console.error(err);showToast('Silme başarısız','err');});
   }
 }
 
