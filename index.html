@@ -690,13 +690,13 @@ function submitOrder(){
       items: items.map(p=>({
         id: p.id,
         name: p.name,
-        price: smsConsent ? '****' : p.price,
+        price: p.price,
         qty: cart[p.id]
       })),
-      subtotal: smsConsent ? '****' : subtotal,
-      total: smsConsent ? '****' : total,
+      subtotal: subtotal,
+      total: total,
       couponCode: appliedCoupon ? appliedCoupon.code : null,
-      couponAmount: appliedCoupon ? (smsConsent ? '****' : discount) : null,
+      couponAmount: appliedCoupon ? discount : null,
       name: name,
       phone: phone,
       note: note,
