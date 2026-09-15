@@ -81,6 +81,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pcard{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:0;cursor:pointer;transition:all 0.2s;text-align:center;position:relative;box-shadow:var(--shadow-card);overflow:hidden;}
 .pcard:hover{border-color:var(--accent-mid);box-shadow:var(--shadow-md);transform:translateY(-2px);}
 .pcard.in-cart{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-light) 0%,var(--white) 100%);}
+.pcard.disabled{opacity:0.45;pointer-events:none;}
+.pcard-disabled-note{font-size:11px;color:var(--text-3);text-align:center;font-weight:600;padding:8px 0;}
+.pcard-stock-count{font-size:10px;color:var(--text-3);font-weight:600;margin-top:3px;}
 .pcard-visual{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .pcard-visual svg{width:100%;height:100%;}
 .pcard-tag{position:absolute;top:10px;left:10px;background:var(--accent);color:#fff;font-size:9px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;padding:3px 8px;border-radius:5px;}
@@ -91,9 +94,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pcard-qty-row{display:flex;align-items:center;justify-content:center;gap:2px;margin-top:8px;}
 .pcard-qb{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--border-strong);background:var(--white);color:var(--text-2);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-weight:700;line-height:1;flex-shrink:0;}
 .pcard-qb:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.pcard-qb:disabled{opacity:0.3;cursor:not-allowed;background:var(--white);border-color:var(--border-strong);color:var(--text-2);}
 .pcard-qn{width:34px;text-align:center;font-size:16px;font-weight:800;color:var(--text);}
 .pcard-add-btn{width:100%;background:var(--accent-light);border:1.5px solid var(--accent-mid);color:var(--accent-dark);padding:8px 0;border-radius:9px;cursor:pointer;font-size:12px;font-weight:700;transition:all 0.15s;font-family:inherit;letter-spacing:0.2px;}
 .pcard-add-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.stock-section{margin-top:32px;}
+.stock-hint{font-size:11.5px;color:var(--text-3);font-weight:500;margin:-12px 0 16px;}
+.cart-stock-badge{background:var(--accent-light);color:var(--accent-dark);font-size:9px;font-weight:800;padding:2px 7px;border-radius:50px;text-transform:uppercase;margin-left:4px;}
 .cart-panel{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:var(--shadow-card);position:sticky;top:24px;}
 .cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .cart-title{font-size:15px;font-weight:700;letter-spacing:-0.3px;}
@@ -270,6 +277,18 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .price-input{max-width:130px;padding:9px 11px;font-size:13px;}
 .btn-price-update{background:var(--accent-light);border:1.5px solid var(--accent-mid);color:var(--accent-dark);padding:0 16px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit;transition:all 0.15s;white-space:nowrap;}
 .btn-price-update:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.stock-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow);margin-bottom:10px;max-width:640px;}
+.stock-visual{width:56px;height:60px;flex-shrink:0;}
+.stock-visual svg{width:100%;height:100%;}
+.stock-info{flex:1;min-width:0;}
+.stock-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.stock-aroma{font-size:12px;color:var(--text-2);margin-bottom:4px;}
+.stock-price{font-size:13px;font-weight:800;color:var(--accent-dark);}
+.stock-form-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow-card);max-width:420px;margin-bottom:10px;}
+.stock-form-preview{display:none;align-items:center;gap:10px;background:var(--surface);border-radius:10px;padding:8px 12px;margin-bottom:14px;}
+.stock-preview-visual{width:36px;height:40px;flex-shrink:0;}
+.stock-preview-visual svg{width:100%;height:100%;}
+.stock-preview-name{font-size:13px;font-weight:700;color:var(--text);}
 
 @media(max-width:780px){
   .order-body{grid-template-columns:1fr;padding:16px;}
@@ -285,6 +304,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   .coupon-form-grid{grid-template-columns:1fr;}
   .price-card{padding:12px;gap:10px;}
   .price-visual{width:48px;height:52px;}
+  .stock-card{padding:12px;gap:10px;}
+  .stock-visual{width:44px;height:48px;}
   .stats-row{grid-template-columns:1fr;}
   .stats-row-2{grid-template-columns:1fr;}
   .stat-value{font-size:25px;}
@@ -333,6 +354,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div>
       <div class="section-label">Ürünler</div>
       <div class="product-grid" id="product-grid"></div>
+
+      <div class="stock-section" id="stock-section" style="display:none;">
+        <div class="section-label">Stokta Bulunan Ürünler</div>
+        <div class="stock-hint">Sipariş süresini beklemeden hemen alabileceğiniz ürünler</div>
+        <div class="product-grid" id="stock-grid"></div>
+      </div>
     </div>
     <div class="cart-panel">
       <div class="cart-header">
@@ -477,6 +504,33 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="prices-panel" id="prices-panel" style="display:none;">
       <div class="section-label">Ürünler</div>
       <div id="prices-list"></div>
+
+      <div class="section-label" style="margin-top:30px;">Aktif Stoklar</div>
+      <div id="active-stocks-list"></div>
+
+      <div class="section-label" style="margin-top:26px;">Stok Ekle</div>
+      <div class="stock-form-card">
+        <div class="form-group">
+          <label class="form-label">Ürün Seç</label>
+          <select class="form-input" id="new-stock-product" onchange="onStockProductSelect()">
+            <option value="">Ürün seçin...</option>
+          </select>
+        </div>
+        <div class="stock-form-preview" id="stock-form-preview" style="display:none;"></div>
+        <div class="form-group">
+          <label class="form-label">Aroma</label>
+          <input class="form-input" type="text" id="new-stock-aroma" placeholder="Örn: Çilek">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stok Sayısı</label>
+          <input class="form-input" type="number" id="new-stock-count" placeholder="2" min="1">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Fiyat (₺)</label>
+          <input class="form-input" type="number" id="new-stock-price" placeholder="950" min="1">
+        </div>
+        <button class="btn-submit" style="margin-top:16px;" onclick="addStockItem()">Ekle</button>
+      </div>
     </div>
     <div class="announcement-panel" id="announcement-panel" style="display:none;">
       <div class="section-label">Aktif Duyuru</div>
@@ -525,6 +579,7 @@ let cart={};
 let currentTab='pending';
 let allOrders = [];
 let allCoupons = [];
+let allStock = [];
 let appliedCoupon = null;
 let expandedCoupon = null;
 let osmTimer = null;
@@ -555,7 +610,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id==='page-landing'){adjustLandingLayout();}
-  if(id==='page-order'){renderProducts();renderCart();}
+  if(id==='page-order'){renderProducts();renderStockGrid();renderCart();}
   if(id==='page-admin'){resetAdminView();listenOrders();listenCoupons();}
 }
 
@@ -572,10 +627,23 @@ function resetAdminView(){
 }
 
 function renderProducts(){
+  const hasStockItems=Object.keys(cart).some(k=>k.startsWith('stock:') && cart[k]>0);
   document.getElementById('product-grid').innerHTML=PRODUCTS.filter(p=>!p.frozen).map(p=>{
     const q=cart[p.id]||0;
     const inCart=q>0;
     const svg=vapeSVG(p.svgType,p.c1,p.c2,p.lbl,p.sc);
+    if(hasStockItems){
+      return `<div class="pcard disabled">
+        <div class="pcard-visual">${svg}<div class="pcard-tag">${p.puffs}</div></div>
+        <div class="pcard-info">
+          <div class="pcard-name">${p.name}</div>
+          <div class="pcard-price">₺${p.price.toLocaleString('tr-TR')}</div>
+        </div>
+        <div class="pcard-bottom">
+          <div class="pcard-disabled-note">Sepette stok ürünü var</div>
+        </div>
+      </div>`;
+    }
     return `<div class="pcard${inCart?' in-cart':''}">
       <div class="pcard-visual">${svg}<div class="pcard-tag">${p.puffs}</div></div>
       <div class="pcard-info">
@@ -590,9 +658,84 @@ function renderProducts(){
 }
 
 function adj(id,d){
+  if(d>0){
+    const hasStockItems=Object.keys(cart).some(k=>k.startsWith('stock:') && cart[k]>0);
+    if(hasStockItems){
+      showToast('Sepette stok ürünü varken normal sipariş ürünü eklenemez','err');
+      return;
+    }
+  }
   const q=(cart[id]||0)+d;
   if(q<=0)delete cart[id]; else cart[id]=Math.min(q,99);
-  renderProducts(); renderCart();
+  renderProducts(); renderStockGrid(); renderCart();
+}
+
+function renderStockGrid(){
+  const section=document.getElementById('stock-section');
+  const grid=document.getElementById('stock-grid');
+  if(!section||!grid) return;
+
+  if(!allStock.length){
+    section.style.display='none';
+    return;
+  }
+  section.style.display='block';
+
+  const hasNormalItems=Object.keys(cart).some(k=>!k.startsWith('stock:') && cart[k]>0);
+
+  grid.innerHTML=allStock.map(s=>{
+    const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
+    if(!baseProduct) return '';
+    const svg=vapeSVG(baseProduct.svgType,baseProduct.c1,baseProduct.c2,baseProduct.lbl,baseProduct.sc);
+    const cartKey='stock:'+s.firebaseId;
+    const q=cart[cartKey]||0;
+    const inCart=q>0;
+
+    if(hasNormalItems){
+      return `<div class="pcard disabled">
+        <div class="pcard-visual">${svg}<div class="pcard-tag">${s.aroma}</div></div>
+        <div class="pcard-info">
+          <div class="pcard-name">${baseProduct.name}</div>
+          <div class="pcard-price">₺${s.price.toLocaleString('tr-TR')}</div>
+          <div class="pcard-stock-count">Stok: ${s.stockCount} adet</div>
+        </div>
+        <div class="pcard-bottom">
+          <div class="pcard-disabled-note">Sepette normal ürün var</div>
+        </div>
+      </div>`;
+    }
+
+    return `<div class="pcard${inCart?' in-cart':''}">
+      <div class="pcard-visual">${svg}<div class="pcard-tag">${s.aroma}</div></div>
+      <div class="pcard-info">
+        <div class="pcard-name">${baseProduct.name}</div>
+        <div class="pcard-price">₺${s.price.toLocaleString('tr-TR')}</div>
+        <div class="pcard-stock-count">Stok: ${s.stockCount} adet</div>
+      </div>
+      <div class="pcard-bottom">
+        ${inCart?`<div class="pcard-qty-row"><button class="pcard-qb" onclick="adjStock('${s.firebaseId}',-1)">−</button><span class="pcard-qn">${q}</span><button class="pcard-qb" onclick="adjStock('${s.firebaseId}',1)" ${q>=s.stockCount?'disabled':''}>+</button></div>`:`<button class="pcard-add-btn" onclick="adjStock('${s.firebaseId}',1)">+ Sepete Ekle</button>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function adjStock(stockId,d){
+  const cartKey='stock:'+stockId;
+  if(d>0){
+    const hasNormalItems=Object.keys(cart).some(k=>!k.startsWith('stock:') && cart[k]>0);
+    if(hasNormalItems){
+      showToast('Sepette normal sipariş ürünü varken stok ürünü eklenemez','err');
+      return;
+    }
+  }
+  const stockItem=allStock.find(s=>s.firebaseId===stockId);
+  if(!stockItem) return;
+
+  const q=(cart[cartKey]||0)+d;
+  if(q<=0) delete cart[cartKey];
+  else cart[cartKey]=Math.min(q,stockItem.stockCount);
+
+  renderProducts(); renderStockGrid(); renderCart();
 }
 
 function clearCart(){
@@ -603,28 +746,49 @@ function clearCart(){
   const ci=document.getElementById('input-coupon');
   if(ci) ci.value='';
   renderProducts();
+  renderStockGrid();
   renderCart();
 }
 
 function renderCart(){
   const el=document.getElementById('cart-display');
-  const items=PRODUCTS.filter(p=>cart[p.id]>0);
-  const smsConsent=document.getElementById('input-sms').checked;
+  const smsCheckbox=document.getElementById('input-sms');
+
+  const normalItems=PRODUCTS.filter(p=>cart[p.id]>0).map(p=>({
+    type:'normal', id:p.id, name:p.name, price:p.price, qty:cart[p.id]
+  }));
+  const stockItemsInCart=allStock.filter(s=>cart['stock:'+s.firebaseId]>0).map(s=>{
+    const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
+    return {
+      type:'stock', id:s.firebaseId, name:baseProduct?baseProduct.name:'Ürün',
+      aroma:s.aroma, price:s.price, qty:cart['stock:'+s.firebaseId]
+    };
+  });
+  const items=[...normalItems, ...stockItemsInCart];
+  const hasStockItems=stockItemsInCart.length>0;
+
+  smsCheckbox.disabled=hasStockItems;
+  if(hasStockItems) smsCheckbox.checked=false;
+
+  const smsConsent=smsCheckbox.checked;
 
   if(!items.length){
     el.innerHTML='<div class="cart-empty">Henüz ürün eklenmedi<br><small>Soldan ürün seçin</small></div>';
     return;
   }
 
-  const subtotal=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
+  const subtotal=items.reduce((s,item)=>s+item.price*item.qty,0);
   const discount=appliedCoupon?Math.min(appliedCoupon.amount,subtotal):0;
   const total=subtotal-discount;
 
-  const itemsHtml=items.map(p=>{
-    const q=cart[p.id];
-    const rowPriceStr=smsConsent?'₺****':`₺${(p.price*q).toLocaleString('tr-TR')}`;
-    const rowLineStr=smsConsent?`${q} × ₺****`:`${q} × ₺${p.price.toLocaleString('tr-TR')}`;
-    return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${p.name}</div><div class="cart-row-line">${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adj('${p.id}',-${q})">×</button></div>`;
+  const itemsHtml=items.map(item=>{
+    const q=item.qty;
+    const rowPriceStr=smsConsent?'₺****':`₺${(item.price*q).toLocaleString('tr-TR')}`;
+    const rowLineStr=smsConsent?`${q} × ₺****`:`${q} × ₺${item.price.toLocaleString('tr-TR')}`;
+    if(item.type==='stock'){
+      return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${item.name} <span class="cart-stock-badge">Stok</span></div><div class="cart-row-line">Aroma: ${item.aroma} · ${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adjStock('${item.id}',-${q})">×</button></div>`;
+    }
+    return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${item.name}</div><div class="cart-row-line">${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adj('${item.id}',-${q})">×</button></div>`;
   }).join('');
 
   let totalHtml;
@@ -710,11 +874,21 @@ function submitOrder(){
   if(!name){eN.classList.add('show');ok=false;}
   if(!phone||!/^[0-9]{10,13}$/.test(phone.replace(/[\s\-]/g,''))){eP.classList.add('show');ok=false;}
 
-  const items=PRODUCTS.filter(p=>cart[p.id]>0);
+  const normalItems=PRODUCTS.filter(p=>cart[p.id]>0).map(p=>({
+    id:p.id, name:p.name, price:p.price, qty:cart[p.id], isStock:false, aroma:null
+  }));
+  const stockItemsInCart=allStock.filter(s=>cart['stock:'+s.firebaseId]>0).map(s=>{
+    const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
+    return {
+      id:s.firebaseId, name:baseProduct?baseProduct.name:'Ürün',
+      price:s.price, qty:cart['stock:'+s.firebaseId], isStock:true, aroma:s.aroma
+    };
+  });
+  const items=[...normalItems, ...stockItemsInCart];
   if(!items.length){showToast('Sepete ürün ekleyin','err');return;}
   if(!ok)return;
 
-  const subtotal=items.reduce((s,p)=>s+p.price*(cart[p.id]||0),0);
+  const subtotal=items.reduce((s,item)=>s+item.price*item.qty,0);
   const discount=appliedCoupon?Math.min(appliedCoupon.amount,subtotal):0;
   const total=subtotal-discount;
   const orderNum = '#' + String(Math.floor(1000 + Math.random() * 9000));
@@ -722,11 +896,13 @@ function submitOrder(){
   function finalizeOrder(){
     const newOrder = {
       num: orderNum,
-      items: items.map(p=>({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        qty: cart[p.id]
+      items: items.map(item=>({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        qty: item.qty,
+        isStock: item.isStock,
+        aroma: item.aroma
       })),
       subtotal: subtotal,
       total: total,
@@ -882,6 +1058,8 @@ function selectAdminSection(section){
     announcementPanel.style.display='none';
     pricesPanel.style.display='block';
     renderPrices();
+    renderActiveStocks();
+    populateStockProductSelect();
   } else if(section==='announcement'){
     searchWrap.style.display='none';
     ordersStack.style.display='none';
@@ -1029,7 +1207,8 @@ function renderAdmin(){
 
     const pl=o.items.map(i=>{
       const linePrice = i.price === '****' ? '₺****' : `₺${(i.price * i.qty).toLocaleString('tr-TR')}`;
-      return `${i.name} (${i.qty} × ${i.price === '****' ? '₺****' : `₺${i.price.toLocaleString('tr-TR')}`}) - <span style="color:var(--accent-dark);font-weight:700;">${linePrice}</span>`;
+      const stockTag = i.isStock ? ` <span style="color:var(--accent-dark);font-weight:800;">📦 Stok</span>${i.aroma?` · Aroma: ${i.aroma}`:''}` : '';
+      return `${i.name}${stockTag} (${i.qty} × ${i.price === '****' ? '₺****' : `₺${i.price.toLocaleString('tr-TR')}`}) - <span style="color:var(--accent-dark);font-weight:700;">${linePrice}</span>`;
     }).join('<br>');
 
     const smsText = o.smsConsent ? ' &nbsp;·&nbsp; <span style="color:var(--success);font-weight:600;">📱 SMS İstiyor</span>' : '';
@@ -1283,6 +1462,128 @@ function toggleProductFreeze(id){
   }
 }
 
+/* ---------- Stock (Stokta Bulunan Ürünler) ---------- */
+
+function listenStock(){
+  database.ref('stock').on('value', snapshot=>{
+    allStock=[];
+    const data=snapshot.val();
+    if(data){
+      Object.keys(data).forEach(key=>{
+        allStock.push({firebaseId:key, ...data[key]});
+      });
+      allStock.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    }
+    if(document.getElementById('page-order').classList.contains('active')){
+      renderStockGrid();
+      renderCart();
+    }
+    if(document.getElementById('page-admin').classList.contains('active') && adminSection==='prices'){
+      renderActiveStocks();
+    }
+  });
+}
+
+function populateStockProductSelect(){
+  const select=document.getElementById('new-stock-product');
+  if(!select) return;
+  select.innerHTML='<option value="">Ürün seçin...</option>'+
+    PRODUCTS.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+}
+
+function onStockProductSelect(){
+  const select=document.getElementById('new-stock-product');
+  const preview=document.getElementById('stock-form-preview');
+  const id=select.value;
+  if(!id){
+    preview.style.display='none';
+    preview.innerHTML='';
+    return;
+  }
+  const p=PRODUCTS.find(pp=>pp.id===id);
+  if(!p){ preview.style.display='none'; return; }
+  const svg=vapeSVG(p.svgType,p.c1,p.c2,p.lbl,p.sc);
+  preview.innerHTML=`<div class="stock-preview-visual">${svg}</div><div class="stock-preview-name">${p.name}</div>`;
+  preview.style.display='flex';
+}
+
+function renderActiveStocks(){
+  const list=document.getElementById('active-stocks-list');
+  if(!list) return;
+  if(!allStock.length){
+    list.innerHTML='<div class="empty-state"><div class="ei">📦</div><p>Henüz stok eklenmedi</p></div>';
+    return;
+  }
+  list.innerHTML=allStock.map(s=>{
+    const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
+    const svg=baseProduct?vapeSVG(baseProduct.svgType,baseProduct.c1,baseProduct.c2,baseProduct.lbl,baseProduct.sc):'';
+    const productName=baseProduct?baseProduct.name:'(Ürün bulunamadı)';
+    return `<div class="stock-card">
+      <div class="stock-visual">${svg}</div>
+      <div class="stock-info">
+        <div class="stock-name">${productName}</div>
+        <div class="stock-aroma">Aroma: ${s.aroma}</div>
+        <div class="stock-price">₺${Number(s.price).toLocaleString('tr-TR')} &nbsp;·&nbsp; Stok: ${s.stockCount} adet</div>
+      </div>
+      <button class="btn-act del" onclick="deleteStockItem('${s.firebaseId}')" title="Sil">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function addStockItem(){
+  const select=document.getElementById('new-stock-product');
+  const aromaInput=document.getElementById('new-stock-aroma');
+  const countInput=document.getElementById('new-stock-count');
+  const priceInput=document.getElementById('new-stock-price');
+
+  const productId=select.value;
+  const aroma=aromaInput.value.trim();
+  const count=parseInt(countInput.value);
+  const price=parseInt(priceInput.value);
+
+  if(!productId){ showToast('Bir ürün seçin','err'); return; }
+  if(!aroma){ showToast('Aroma girin','err'); return; }
+  if(!count||count<=0){ showToast('Geçerli bir stok sayısı girin','err'); return; }
+  if(!price||price<=0){ showToast('Geçerli bir fiyat girin','err'); return; }
+
+  database.ref('stock').push({
+    productId:productId,
+    aroma:aroma,
+    stockCount:count,
+    price:price,
+    createdAt:Date.now()
+  }).then(()=>{
+    showToast('✅ Stok eklendi');
+    select.value='';
+    aromaInput.value='';
+    countInput.value='';
+    priceInput.value='';
+    const preview=document.getElementById('stock-form-preview');
+    if(preview){ preview.style.display='none'; preview.innerHTML=''; }
+  }).catch(err=>{
+    console.error(err);
+    showToast('Stok eklenemedi','err');
+  });
+}
+
+function deleteStockItem(id){
+  if(confirm('Bu stok ürününü kalıcı olarak silmek istediğinize emin misiniz?')){
+    database.ref('stock/'+id).remove().then(()=>{
+      showToast('Stok ürünü silindi');
+      const cartKey='stock:'+id;
+      if(cart[cartKey]){
+        delete cart[cartKey];
+        renderProducts();
+        renderStockGrid();
+        renderCart();
+      }
+    }).catch(err=>{
+      console.error(err);
+      showToast('Silme başarısız','err');
+    });
+  }
+}
+
 /* ---------- Announcement ---------- */
 
 let lastAnnouncementData=null;
@@ -1394,6 +1695,7 @@ if(sessionStorage.getItem('ap_auth')==='1') {
 renderProducts();
 renderCart();
 listenProductPrices();
+listenStock();
 listenAnnouncement();
 adjustLandingLayout();
 </script>
