@@ -321,7 +321,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 <div class="modal-overlay" id="order-success-overlay" onclick="if(event.target===this)closeOrderSuccess()">
   <div class="order-success-modal">
-    <div class="osm-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="osm-icon">✅</div>
     <div class="osm-title">Siparişiniz Oluşturuldu!</div>
     <div class="osm-sub">Sipariş Numaranız</div>
     <div class="osm-num" id="osm-num">#0000</div>
@@ -339,16 +339,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="announcement-text" id="announcement-text"></div>
   </div>
   <div class="land-hero">
-    <div class="land-chip"><i class="fa-solid fa-sparkles"></i> Sipariş</div>
+    <div class="land-chip">✦ Sipariş</div>
     <h1 class="land-h1">En iyi *'lar<br><em>kapına gelsin</em></h1>
     <p class="land-sub">Vozol ve daha fazlasını keşfet. Ürünü seç, adedini belirle, siparişini ver.</p>
-    <button class="btn-cta" onclick="showPage('page-order')">Sipariş Ver <i class="fa-solid fa-arrow-right"></i></button>
+    <button class="btn-cta" onclick="showPage('page-order')">Sipariş Ver →</button>
   </div>
 </div>
 
 <div class="page" id="page-order">
   <nav class="order-nav">
-    <button class="btn-back" onclick="showPage('page-landing')"><i class="fa-solid fa-arrow-left"></i> Geri</button>
+    <button class="btn-back" onclick="showPage('page-landing')">← Geri</button>
     <span class="order-nav-title">Sipariş Ver</span>
   </nav>
   <div class="order-body">
@@ -400,7 +400,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 <div class="page" id="page-admin-login">
   <div class="login-wrap">
-    <div class="login-icon"><i class="fa-solid fa-lock"></i></div>
+    <div class="login-icon">🔒</div>
     <h1 class="login-h">Admin Girişi</h1>
     <p class="login-sub">AloPuff yönetim paneline erişin</p>
     <div class="form-group">
@@ -413,7 +413,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
     <div class="login-err" id="login-err"></div>
     <button class="btn-login-full" id="btn-login-full" onclick="doLogin()">Giriş Yap</button>
-    <button class="btn-text-sm" onclick="showPage('page-landing')"><i class="fa-solid fa-arrow-left"></i> Ana sayfaya dön</button>
+    <button class="btn-text-sm" onclick="showPage('page-landing')">← Ana sayfaya dön</button>
   </div>
 </div>
 
@@ -424,49 +424,49 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <span class="admin-pill">Admin</span>
     </div>
     <div class="admin-nav-actions">
-      <button class="btn-hamburger" id="btn-hamburger" onclick="toggleAdminMenu()"><i class="fa-solid fa-bars"></i></button>
+      <button class="btn-hamburger" id="btn-hamburger" onclick="toggleAdminMenu()">☰</button>
       <button class="btn-logout" onclick="logout()">Çıkış</button>
     </div>
   </nav>
   <div class="admin-menu-overlay" id="admin-menu-overlay" onclick="closeAdminMenu()"></div>
   <div class="admin-menu" id="admin-menu">
-    <button class="admin-menu-item" data-section="pending" onclick="selectAdminSection('pending')"><i class="fa-solid fa-hourglass-half"></i> Bekleyenler <span class="tab-count" id="cnt-pending">0</span></button>
-    <button class="admin-menu-item" data-section="done" onclick="selectAdminSection('done')"><i class="fa-solid fa-circle-check"></i> Tamamlananlar <span class="tab-count" id="cnt-done">0</span></button>
-    <button class="admin-menu-item" data-section="cancelled" onclick="selectAdminSection('cancelled')"><i class="fa-solid fa-circle-xmark"></i> İptal Edilenler <span class="tab-count" id="cnt-cancelled">0</span></button>
-    <button class="admin-menu-item" data-section="coupons" onclick="selectAdminSection('coupons')"><i class="fa-solid fa-ticket"></i> Kuponlar <span class="tab-count" id="cnt-coupons">0</span></button>
-    <button class="admin-menu-item" data-section="prices" onclick="selectAdminSection('prices')"><i class="fa-solid fa-box"></i> Ürünler</button>
-    <button class="admin-menu-item" data-section="announcement" onclick="selectAdminSection('announcement')"><i class="fa-solid fa-bullhorn"></i> Duyuru</button>
+    <button class="admin-menu-item" data-section="pending" onclick="selectAdminSection('pending')">⏳ Bekleyenler <span class="tab-count" id="cnt-pending">0</span></button>
+    <button class="admin-menu-item" data-section="done" onclick="selectAdminSection('done')">✅ Tamamlananlar <span class="tab-count" id="cnt-done">0</span></button>
+    <button class="admin-menu-item" data-section="cancelled" onclick="selectAdminSection('cancelled')">❌ İptal Edilenler <span class="tab-count" id="cnt-cancelled">0</span></button>
+    <button class="admin-menu-item" data-section="coupons" onclick="selectAdminSection('coupons')">🎟️ Kuponlar <span class="tab-count" id="cnt-coupons">0</span></button>
+    <button class="admin-menu-item" data-section="prices" onclick="selectAdminSection('prices')">📦 Ürünler</button>
+    <button class="admin-menu-item" data-section="announcement" onclick="selectAdminSection('announcement')">📢 Duyuru</button>
   </div>
   <div class="admin-content">
     <div class="admin-welcome" id="admin-welcome">
       <div class="aw-header">
-        <div class="aw-icon"><i class="fa-solid fa-hand"></i></div>
+        <div class="aw-icon">👋</div>
         <div class="aw-title">Hoşgeldiniz, Admin</div>
-        <div class="aw-sub">Devam etmek için sağ üstteki <i class="fa-solid fa-bars"></i> menüsünden bir kategori seçin.</div>
+        <div class="aw-sub">Devam etmek için sağ üstteki ☰ menüsünden bir kategori seçin.</div>
       </div>
 
       <div class="stats-row">
         <div class="stat-card stat-pending">
-          <div class="stat-label"><i class="fa-solid fa-hourglass-half"></i> Bekleyen Siparişler</div>
+          <div class="stat-label">⏳ Bekleyen Siparişler</div>
           <div class="stat-value" id="stat-pending-count">0</div>
         </div>
         <div class="stat-card stat-done">
-          <div class="stat-label"><i class="fa-solid fa-circle-check"></i> Tamamlanan Siparişler</div>
+          <div class="stat-label">✅ Tamamlanan Siparişler</div>
           <div class="stat-value" id="stat-done-count">0</div>
         </div>
         <div class="stat-card stat-cancelled">
-          <div class="stat-label"><i class="fa-solid fa-circle-xmark"></i> İptal Edilenler</div>
+          <div class="stat-label">❌ İptal Edilenler</div>
           <div class="stat-value" id="stat-cancelled-count">0</div>
         </div>
       </div>
 
       <div class="stats-row stats-row-2">
         <div class="stat-card stat-sales">
-          <div class="stat-label"><i class="fa-solid fa-sack-dollar"></i> Başarılı Satış Tutarı</div>
+          <div class="stat-label">💰 Başarılı Satış Tutarı</div>
           <div class="stat-value" id="stat-sales-total">₺0</div>
         </div>
         <div class="stat-card stat-rate">
-          <div class="stat-label"><i class="fa-solid fa-chart-line"></i> Başarı Oranı</div>
+          <div class="stat-label">📈 Başarı Oranı</div>
           <div class="stat-value" id="stat-success-rate">%0</div>
         </div>
       </div>
@@ -477,7 +477,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       </div>
     </div>
     <div class="admin-search-wrap" id="admin-search-wrap" style="display:none;">
-      <input class="form-input admin-search-input" type="text" id="admin-search" placeholder="<i class="fa-solid fa-magnifying-glass"></i> Sipariş no ile ara (örn: 9323)" oninput="renderAdmin()">
+      <input class="form-input admin-search-input" type="text" id="admin-search" placeholder="🔍 Sipariş no ile ara (örn: 9323)" oninput="renderAdmin()">
     </div>
     <div class="orders-stack" id="orders-stack" style="display:none;"></div>
     <div class="coupons-panel" id="coupons-panel" style="display:none;">
@@ -604,7 +604,7 @@ function vapeSVG(type,color1,color2,label,screenColor){
     const gid='gn'+color1.replace('#','');
     return `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient><clipPath id="cp${gid}"><rect x="24" y="16" width="72" height="100" rx="16"/></clipPath></defs><rect x="46" y="6" width="28" height="13" rx="6" fill="${color2}" opacity="0.9"/><g clip-path="url(#cp${gid})"><rect x="24" y="16" width="72" height="100" fill="url(#${gid})" opacity="0.45"/><circle cx="42" cy="36" r="2.6" fill="#fff" opacity="0.6"/><circle cx="58" cy="28" r="1.8" fill="#fff" opacity="0.5"/><circle cx="76" cy="42" r="2.2" fill="#fff" opacity="0.55"/><circle cx="50" cy="54" r="1.6" fill="#fff" opacity="0.45"/><rect x="24" y="68" width="72" height="48" fill="${color2}"/></g><rect x="24" y="16" width="72" height="100" rx="16" fill="none" stroke="${color2}" stroke-width="2" opacity="0.5"/><rect x="34" y="78" width="52" height="28" rx="7" fill="${sc}"/><text x="60" y="96" text-anchor="middle" font-size="8" font-family="monospace" fill="#ffcf9c" font-weight="bold">${label}</text><text x="60" y="110" text-anchor="middle" font-size="6.5" font-family="sans-serif" fill="#fff" opacity="0.7" font-weight="700">VOZOL</text></svg>`;
   }
-  return `<svg viewBox="0 0 120 130"><text x="60" y="65" text-anchor="middle" font-size="40"><i class="fa-solid fa-box"></i></text></svg>`;
+  return `<svg viewBox="0 0 120 130"><text x="60" y="65" text-anchor="middle" font-size="40">📦</text></svg>`;
 }
 
 function showPage(id){
@@ -787,9 +787,9 @@ function renderCart(){
     const rowPriceStr=smsConsent?'₺****':`₺${(item.price*q).toLocaleString('tr-TR')}`;
     const rowLineStr=smsConsent?`${q} × ₺****`:`${q} × ₺${item.price.toLocaleString('tr-TR')}`;
     if(item.type==='stock'){
-      return `<div class="cart-row"><span class="cart-row-icon"><i class="fa-solid fa-box"></i></span><div class="cart-row-info"><div class="cart-row-name">${item.name} <span class="cart-stock-badge">Stok</span></div><div class="cart-row-line">Aroma: ${item.aroma} · ${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adjStock('${item.id}',-${q})">×</button></div>`;
+      return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${item.name} <span class="cart-stock-badge">Stok</span></div><div class="cart-row-line">Aroma: ${item.aroma} · ${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adjStock('${item.id}',-${q})">×</button></div>`;
     }
-    return `<div class="cart-row"><span class="cart-row-icon"><i class="fa-solid fa-box"></i></span><div class="cart-row-info"><div class="cart-row-name">${item.name}</div><div class="cart-row-line">${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adj('${item.id}',-${q})">×</button></div>`;
+    return `<div class="cart-row"><span class="cart-row-icon">📦</span><div class="cart-row-info"><div class="cart-row-name">${item.name}</div><div class="cart-row-line">${rowLineStr}</div></div><span class="cart-row-price">${rowPriceStr}</span><button class="cart-row-del" onclick="adj('${item.id}',-${q})">×</button></div>`;
   }).join('');
 
   let totalHtml;
@@ -801,7 +801,7 @@ function renderCart(){
     totalHtml=`<span class="cart-total-val">₺${subtotal.toLocaleString('tr-TR')}</span>`;
   }
 
-  const couponNote=(discount>0 && !smsConsent)?`<div class="coupon-applied-note"><i class="fa-solid fa-gift"></i> ${appliedCoupon.code} kodu ile ₺${discount.toLocaleString('tr-TR')} indirim uygulandı</div>`:'';
+  const couponNote=(discount>0 && !smsConsent)?`<div class="coupon-applied-note">🎉 ${appliedCoupon.code} kodu ile ₺${discount.toLocaleString('tr-TR')} indirim uygulandı</div>`:'';
 
   el.innerHTML=`<div class="cart-items">${itemsHtml}</div><div class="cart-total"><span class="cart-total-label">Toplam</span>${totalHtml}</div>${couponNote}`;
 }
@@ -976,7 +976,7 @@ function closeOrderSuccess(){
 
 function showToast(msg,type=''){
   const t=document.getElementById('toast');
-  t.innerHTML=msg;t.className=type;
+  t.textContent=msg;t.className=type;
   requestAnimationFrame(()=>t.classList.add('show'));
   setTimeout(()=>t.classList.remove('show'),3400);
 }
@@ -1154,9 +1154,9 @@ function renderStatsChart(){
     return `<div class="mchart-col">
       <div class="mchart-tip" id="mchart-tip-${i}">
         Toplam: ${c.total}<br>
-        <span style="color:#6ee7b7;"><i class="fa-solid fa-circle-check"></i> Tamamlanan: ${c.done}</span><br>
-        <span style="color:#fca5a5;"><i class="fa-solid fa-circle-xmark"></i> İptal: ${c.cancelled}</span><br>
-        <span style="color:#93c5fd;"><i class="fa-solid fa-hourglass-half"></i> Bekleyen: ${c.pending}</span>
+        <span style="color:#6ee7b7;">✅ Tamamlanan: ${c.done}</span><br>
+        <span style="color:#fca5a5;">❌ İptal: ${c.cancelled}</span><br>
+        <span style="color:#93c5fd;">⏳ Bekleyen: ${c.pending}</span>
       </div>
       <div class="mchart-bar-wrap">
         <div class="mchart-bar" style="height:${heightPct}%" onclick="toggleChartTip(${i})"></div>
@@ -1197,7 +1197,7 @@ function renderAdmin(){
   if(!list.length){
     const m={pending:'Bekleyen sipariş yok',done:'Tamamlanan sipariş yok',cancelled:'İptal edilen sipariş yok'};
     const msg=searching?'Bu numarayla eşleşen sipariş bulunamadı':(m[currentTab]||'Sipariş yok');
-    stack.innerHTML=`<div class="empty-state"><div class="ei"><i class="fa-solid fa-inbox"></i></div><p>${msg}</p></div>`;return;
+    stack.innerHTML=`<div class="empty-state"><div class="ei">📭</div><p>${msg}</p></div>`;return;
   }
 
   const sm={pending:['st-pending','Bekliyor'],done:['st-done','Tamamlandı'],cancelled:['st-cancelled','İptal']};
@@ -1208,11 +1208,11 @@ function renderAdmin(){
 
     const pl=o.items.map(i=>{
       const linePrice = i.price === '****' ? '₺****' : `₺${(i.price * i.qty).toLocaleString('tr-TR')}`;
-      const stockTag = i.isStock ? ` <span style="color:var(--accent-dark);font-weight:800;"><i class="fa-solid fa-box"></i> Stok</span>${i.aroma?` · Aroma: ${i.aroma}`:''}` : '';
+      const stockTag = i.isStock ? ` <span style="color:var(--accent-dark);font-weight:800;">📦 Stok</span>${i.aroma?` · Aroma: ${i.aroma}`:''}` : '';
       return `${i.name}${stockTag} (${i.qty} × ${i.price === '****' ? '₺****' : `₺${i.price.toLocaleString('tr-TR')}`}) - <span style="color:var(--accent-dark);font-weight:700;">${linePrice}</span>`;
     }).join('<br>');
 
-    const smsText = o.smsConsent ? ' &nbsp;·&nbsp; <span style="color:var(--success);font-weight:600;"><i class="fa-solid fa-comment-sms"></i> SMS İstiyor</span>' : '';
+    const smsText = o.smsConsent ? ' &nbsp;·&nbsp; <span style="color:var(--success);font-weight:600;">📱 SMS İstiyor</span>' : '';
     const noteSection = o.note ? `<div class="order-note"><b>Not:</b> ${o.note}</div>` : '';
 
     let totalSection;
@@ -1222,7 +1222,7 @@ function renderAdmin(){
       const sub = o.subtotal!==undefined && o.subtotal!==null ? o.subtotal : o.total;
       totalSection = `<div class="order-total-admin">
         <div style="font-size:12px;color:var(--text-3);text-decoration:line-through;font-weight:600;">Ürün Toplamı: ₺${Number(sub).toLocaleString('tr-TR')}</div>
-        <div style="font-size:12px;color:var(--success);font-weight:700;margin:2px 0;"><i class="fa-solid fa-ticket"></i> İndirim Kodu: ${o.couponCode} (-₺${Number(o.couponAmount).toLocaleString('tr-TR')})</div>
+        <div style="font-size:12px;color:var(--success);font-weight:700;margin:2px 0;">🎟️ İndirim Kodu: ${o.couponCode} (-₺${Number(o.couponAmount).toLocaleString('tr-TR')})</div>
         <div>Toplam: ₺${Number(o.total).toLocaleString('tr-TR')}</div>
       </div>`;
     } else {
@@ -1238,9 +1238,9 @@ function renderAdmin(){
         ${totalSection}
       </div>
       <div class="order-actions">
-        <button class="btn-act ok" onclick="setStatus('${o.firebaseId}','done')" ${!ip?'disabled':''} title="Tamamlandı"><i class="fa-solid fa-circle-check"></i></button>
-        <button class="btn-act no" onclick="setStatus('${o.firebaseId}','cancelled')" ${!ip?'disabled':''} title="İptal"><i class="fa-solid fa-circle-xmark"></i></button>
-        <button class="btn-act del" onclick="deleteOrder('${o.firebaseId}')" title="Sil"><i class="fa-solid fa-trash"></i></button>
+        <button class="btn-act ok" onclick="setStatus('${o.firebaseId}','done')" ${!ip?'disabled':''} title="Tamamlandı">✅</button>
+        <button class="btn-act no" onclick="setStatus('${o.firebaseId}','cancelled')" ${!ip?'disabled':''} title="İptal">❌</button>
+        <button class="btn-act del" onclick="deleteOrder('${o.firebaseId}')" title="Sil">🗑️</button>
       </div>
     </div>`;
   }).join('');
@@ -1310,7 +1310,7 @@ function createCoupon(){
     usedBy:[],
     createdAt:Date.now()
   }).then(()=>{
-    showToast('<i class="fa-solid fa-circle-check"></i> Kupon oluşturuldu');
+    showToast('✅ Kupon oluşturuldu');
     codeEl.value='';amountEl.value='';limitEl.value='';
   }).catch(err=>{
     console.error(err);
@@ -1321,7 +1321,7 @@ function createCoupon(){
 function renderCoupons(){
   const list=document.getElementById('coupons-list');
   if(!allCoupons.length){
-    list.innerHTML='<div class="empty-state"><div class="ei"><i class="fa-solid fa-ticket"></i></div><p>Henüz kupon oluşturulmadı</p></div>';
+    list.innerHTML='<div class="empty-state"><div class="ei">🎟️</div><p>Henüz kupon oluşturulmadı</p></div>';
     return;
   }
   list.innerHTML=allCoupons.map(c=>{
@@ -1331,18 +1331,18 @@ function renderCoupons(){
     const exhausted=remaining<=0;
     const isExpanded=expandedCoupon===c.firebaseId;
     const usedByList=c.usedBy||[];
-    const statusBadge = c.frozen ? '<span class="coupon-badge frozen"><i class="fa-solid fa-snowflake"></i> Donduruldu</span>' : (exhausted ? '<span class="coupon-badge exhausted">Tükendi</span>' : '<span class="coupon-badge active">Aktif</span>');
+    const statusBadge = c.frozen ? '<span class="coupon-badge frozen">❄️ Donduruldu</span>' : (exhausted ? '<span class="coupon-badge exhausted">Tükendi</span>' : '<span class="coupon-badge active">Aktif</span>');
     return `<div class="coupon-card">
       <div class="coupon-row" onclick="toggleCoupon('${c.firebaseId}')">
         <div class="coupon-main">
-          <div class="coupon-code"><i class="fa-solid fa-ticket"></i> ${c.code}</div>
+          <div class="coupon-code">🎟️ ${c.code}</div>
           <div class="coupon-meta">₺${Number(c.amount).toLocaleString('tr-TR')} indirim &nbsp;·&nbsp; Kalan: ${remaining}/${limit} kullanım ${statusBadge}</div>
         </div>
         <div class="coupon-actions" onclick="event.stopPropagation()">
-          <button class="btn-act" onclick="toggleFreeze('${c.firebaseId}', ${!!c.frozen})" title="${c.frozen?'Aktifleştir':'Dondur'}">${c.frozen?'<i class="fa-solid fa-play"></i>':'<i class="fa-solid fa-snowflake"></i>'}</button>
-          <button class="btn-act del" onclick="deleteCoupon('${c.firebaseId}')" title="Sil"><i class="fa-solid fa-trash"></i></button>
+          <button class="btn-act" onclick="toggleFreeze('${c.firebaseId}', ${!!c.frozen})" title="${c.frozen?'Aktifleştir':'Dondur'}">${c.frozen?'▶️':'❄️'}</button>
+          <button class="btn-act del" onclick="deleteCoupon('${c.firebaseId}')" title="Sil">🗑️</button>
         </div>
-        <div class="coupon-chevron ${isExpanded?'open':''}"><i class="fa-solid fa-chevron-down"></i></div>
+        <div class="coupon-chevron ${isExpanded?'open':''}">▾</div>
       </div>
       <div class="coupon-expand ${isExpanded?'open':''}">
         <div class="coupon-expand-inner">
@@ -1404,8 +1404,8 @@ function renderPrices(){
     const svg=vapeSVG(p.svgType,p.c1,p.c2,p.lbl,p.sc);
     const frozen=!!p.frozen;
     const statusBadge=frozen
-      ? '<span class="coupon-badge frozen"><i class="fa-solid fa-snowflake"></i> Donduruldu</span>'
-      : '<span class="coupon-badge active"><i class="fa-solid fa-circle-check"></i> Satışta</span>';
+      ? '<span class="coupon-badge frozen">❄️ Donduruldu</span>'
+      : '<span class="coupon-badge active">✅ Satışta</span>';
     return `<div class="price-card">
       <div class="price-visual">${svg}</div>
       <div class="price-info">
@@ -1415,7 +1415,7 @@ function renderPrices(){
         <div class="price-edit-row">
           <input class="form-input price-input" type="number" id="price-input-${p.id}" value="${p.price}" min="1">
           <button class="btn-price-update" onclick="updateProductPrice('${p.id}')">Güncelle</button>
-          <button class="btn-act" onclick="toggleProductFreeze('${p.id}')" title="${frozen?'Satışa Aç':'Dondur'}">${frozen?'<i class="fa-solid fa-play"></i>':'<i class="fa-solid fa-snowflake"></i>'}</button>
+          <button class="btn-act" onclick="toggleProductFreeze('${p.id}')" title="${frozen?'Satışa Aç':'Dondur'}">${frozen?'▶️':'❄️'}</button>
         </div>
       </div>
     </div>`;
@@ -1430,7 +1430,7 @@ function updateProductPrice(id){
     return;
   }
   database.ref('products/'+id).update({price:newPrice}).then(()=>{
-    showToast('<i class="fa-solid fa-circle-check"></i> Fiyat güncellendi');
+    showToast('✅ Fiyat güncellendi');
   }).catch(err=>{
     console.error(err);
     showToast('Fiyat güncellenemedi','err');
@@ -1444,7 +1444,7 @@ function toggleProductFreeze(id){
 
   if(currentlyFrozen){
     database.ref('products/'+id).update({frozen:false}).then(()=>{
-      showToast('<i class="fa-solid fa-circle-check"></i> Ürün tekrar satışa açıldı');
+      showToast('✅ Ürün tekrar satışa açıldı');
     }).catch(err=>{
       console.error(err);
       showToast('İşlem başarısız','err');
@@ -1455,7 +1455,7 @@ function toggleProductFreeze(id){
     // and creates the record (with its pre-freeze price) for a product that
     // never had one yet, so nothing is lost when it's opened again later.
     database.ref('products/'+id).update({price:product.price, frozen:true}).then(()=>{
-      showToast('<i class="fa-solid fa-snowflake"></i> Ürün donduruldu, satıştan kaldırıldı');
+      showToast('❄️ Ürün donduruldu, satıştan kaldırıldı');
     }).catch(err=>{
       console.error(err);
       showToast('İşlem başarısız','err');
@@ -1512,7 +1512,7 @@ function renderActiveStocks(){
   const list=document.getElementById('active-stocks-list');
   if(!list) return;
   if(!allStock.length){
-    list.innerHTML='<div class="empty-state"><div class="ei"><i class="fa-solid fa-box"></i></div><p>Henüz stok eklenmedi</p></div>';
+    list.innerHTML='<div class="empty-state"><div class="ei">📦</div><p>Henüz stok eklenmedi</p></div>';
     return;
   }
   list.innerHTML=allStock.map(s=>{
@@ -1526,7 +1526,7 @@ function renderActiveStocks(){
         <div class="stock-aroma">Aroma: ${s.aroma}</div>
         <div class="stock-price">₺${Number(s.price).toLocaleString('tr-TR')} &nbsp;·&nbsp; Stok: ${s.stockCount} adet</div>
       </div>
-      <button class="btn-act del" onclick="deleteStockItem('${s.firebaseId}')" title="Sil"><i class="fa-solid fa-trash"></i></button>
+      <button class="btn-act del" onclick="deleteStockItem('${s.firebaseId}')" title="Sil">🗑️</button>
     </div>`;
   }).join('');
 }
@@ -1554,7 +1554,7 @@ function addStockItem(){
     price:price,
     createdAt:Date.now()
   }).then(()=>{
-    showToast('<i class="fa-solid fa-circle-check"></i> Stok eklendi');
+    showToast('✅ Stok eklendi');
     select.value='';
     aromaInput.value='';
     countInput.value='';
@@ -1645,7 +1645,7 @@ function renderAnnouncementAdmin(){
     const delBtn=document.createElement('button');
     delBtn.className='btn-act del';
     delBtn.title='Sil';
-    delBtn.innerHTML='<i class="fa-solid fa-trash"></i>';
+    delBtn.textContent='🗑️';
     delBtn.onclick=deleteAnnouncement;
     card.appendChild(textDiv);
     card.appendChild(delBtn);
@@ -1669,7 +1669,7 @@ function sendAnnouncement(){
     text:text,
     createdAt:Date.now()
   }).then(()=>{
-    showToast('<i class="fa-solid fa-circle-check"></i> Duyuru yayınlandı');
+    showToast('✅ Duyuru yayınlandı');
   }).catch(err=>{
     console.error(err);
     showToast('Duyuru gönderilemedi','err');
