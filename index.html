@@ -157,6 +157,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-login-full{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-dark));border:none;color:#fff;padding:13px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:all 0.18s;font-family:inherit;box-shadow:0 4px 14px rgba(74,144,217,0.32);}
 .btn-login-full:hover{box-shadow:0 6px 22px rgba(74,144,217,0.42);}
 .login-err{color:var(--danger);font-size:13px;margin-top:12px;display:none;font-weight:600;background:var(--danger-bg);padding:10px 14px;border-radius:9px;}
+.login-err.success{color:var(--success);background:var(--success-bg);}
 .btn-text-sm{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:13px;margin-top:16px;display:block;margin-left:auto;margin-right:auto;font-family:inherit;transition:color 0.15s;font-weight:500;}
 .btn-text-sm:hover{color:var(--accent);}
 #page-admin{flex-direction:column;background:var(--bg);}
@@ -998,37 +999,35 @@ function doLogin(){
   const p=document.getElementById('login-pass').value;
   const err=document.getElementById('login-err');
   const btn=document.getElementById('btn-login-full');
+  err.className='login-err';
   err.style.display='none';
+
+  if(!email){
+    err.textContent='Lütfen e-posta adresinizi girin.';
+    err.style.display='block';
+    return;
+  }
+  if(!p){
+    err.textContent='Lütfen şifrenizi girin.';
+    err.style.display='block';
+    return;
+  }
+
   if(btn) btn.disabled=true;
 
   firebase.auth().signInWithEmailAndPassword(email, p)
+    .then(()=>{
+      err.textContent='Başarılı giriş! Yönlendiriliyorsunuz...';
+      err.className='login-err success';
+      err.style.display='block';
+      setTimeout(()=>{
+        showPage('page-admin');
+      }, 500);
+    })
     .catch(error=>{
       console.error(error);
-      let msg;
-      switch(error.code){
-        case 'auth/user-not-found':
-          msg='Bu e-posta ile kayıtlı bir admin bulunamadı. Firebase > Authentication > Users kısmını kontrol edin.';
-          break;
-        case 'auth/wrong-password':
-        case 'auth/invalid-credential':
-          msg='E-posta veya şifre hatalı.';
-          break;
-        case 'auth/invalid-email':
-          msg='Geçersiz e-posta formatı.';
-          break;
-        case 'auth/too-many-requests':
-          msg='Çok fazla hatalı deneme yapıldı, birkaç dakika sonra tekrar deneyin.';
-          break;
-        case 'auth/unauthorized-domain':
-          msg='Bu site adresi Firebase\'de yetkili domain listesinde değil (Authentication > Settings > Authorized domains).';
-          break;
-        case 'auth/operation-not-allowed':
-          msg='E-posta/Şifre girişi Firebase\'de henüz açılmamış (Authentication > Sign-in method).';
-          break;
-        default:
-          msg='Giriş başarısız: '+(error.code||error.message||'bilinmeyen hata');
-      }
-      err.textContent=msg;
+      err.textContent='E-posta veya şifre hatalı.';
+      err.className='login-err';
       err.style.display='block';
       document.getElementById('login-pass').value='';
     })
@@ -1722,12 +1721,16 @@ window.addEventListener('resize', adjustLandingLayout);
 
 let authInitialized=false;
 firebase.auth().onAuthStateChanged(user=>{
-  if(user){
-    showPage('page-admin');
-  } else if(authInitialized){
+  if(!authInitialized){
+    authInitialized=true;
+    if(user){
+      showPage('page-admin');
+    }
+    return;
+  }
+  if(!user){
     showPage('page-landing');
   }
-  authInitialized=true;
 });
 
 renderProducts();
