@@ -1003,7 +1003,31 @@ function doLogin(){
   firebase.auth().signInWithEmailAndPassword(email, p)
     .catch(error=>{
       console.error(error);
-      err.textContent='E-posta veya şifre hatalı.';
+      let msg;
+      switch(error.code){
+        case 'auth/user-not-found':
+          msg='Bu e-posta ile kayıtlı bir admin bulunamadı. Firebase > Authentication > Users kısmını kontrol edin.';
+          break;
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          msg='E-posta veya şifre hatalı.';
+          break;
+        case 'auth/invalid-email':
+          msg='Geçersiz e-posta formatı.';
+          break;
+        case 'auth/too-many-requests':
+          msg='Çok fazla hatalı deneme yapıldı, birkaç dakika sonra tekrar deneyin.';
+          break;
+        case 'auth/unauthorized-domain':
+          msg='Bu site adresi Firebase\'de yetkili domain listesinde değil (Authentication > Settings > Authorized domains).';
+          break;
+        case 'auth/operation-not-allowed':
+          msg='E-posta/Şifre girişi Firebase\'de henüz açılmamış (Authentication > Sign-in method).';
+          break;
+        default:
+          msg='Giriş başarısız: '+(error.code||error.message||'bilinmeyen hata');
+      }
+      err.textContent=msg;
       err.style.display='block';
       document.getElementById('login-pass').value='';
     })
