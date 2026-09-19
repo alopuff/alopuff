@@ -987,7 +987,11 @@ function submitOrder(){
   if(stockReserveItems.length){
     reserveStockItems(stockReserveItems).then(result=>{
       if(!result.success){
-        showToast('Üzgünüz, seçtiğiniz stok ürününden yeterli sayıda kalmadı. Sepeti güncelleyin.','err');
+        if(result.error){
+          showToast('Sipariş gönderilemedi, lütfen tekrar deneyin.','err');
+        } else {
+          showToast('Üzgünüz, seçtiğiniz stok ürününden yeterli sayıda kalmadı. Sepeti güncelleyin.','err');
+        }
         renderStockGrid();
         renderCart();
         return;
@@ -1563,11 +1567,12 @@ function reserveStockItems(items){
   // items: [{id: stockFirebaseId, qty: number}, ...]
   const applied=[];
   let failed=false;
+  let hadError=false;
   let chain=Promise.resolve();
 
   items.forEach(item=>{
     chain=chain.then(()=>{
-      if(failed) return;
+      if(failed||hadError) return;
       return database.ref('stock/'+item.id).transaction(cur=>{
         if(!cur) return; // stock item no longer exists - abort
         const remaining=cur.stockCount||0;
@@ -1580,11 +1585,17 @@ function reserveStockItems(items){
         } else {
           applied.push(item);
         }
+      }).catch(err=>{
+        console.error('Stok rezervasyon hatası:', err);
+        hadError=true;
       });
     });
   });
 
   return chain.then(()=>{
+    if(hadError){
+      return releaseStockReservation(applied).then(()=>({success:false, error:true}));
+    }
     if(failed){
       return releaseStockReservation(applied).then(()=>({success:false}));
     }
