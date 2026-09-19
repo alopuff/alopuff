@@ -285,6 +285,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-price-update{background:var(--accent-light);border:1.5px solid var(--accent-mid);color:var(--accent-dark);padding:0 16px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit;transition:all 0.15s;white-space:nowrap;}
 .btn-price-update:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
 .stock-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow);margin-bottom:10px;max-width:640px;}
+.stock-card.sold-out{opacity:0.6;}
 .stock-visual{width:56px;height:60px;flex-shrink:0;}
 .stock-visual svg{width:100%;height:100%;}
 .stock-info{flex:1;min-width:0;}
@@ -689,15 +690,18 @@ function renderStockGrid(){
   const grid=document.getElementById('stock-grid');
   if(!section||!grid) return;
 
-  if(!allStock.length){
+  const availableStock=allStock.filter(s=>(s.stockCount||0)>0);
+
+  if(!availableStock.length){
     section.style.display='none';
+    grid.innerHTML='';
     return;
   }
   section.style.display='block';
 
   const hasNormalItems=Object.keys(cart).some(k=>!k.startsWith('stock:') && cart[k]>0);
 
-  grid.innerHTML=allStock.map(s=>{
+  grid.innerHTML=availableStock.map(s=>{
     const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
     if(!baseProduct) return '';
     const svg=vapeSVG(baseProduct.svgType,baseProduct.c1,baseProduct.c2,baseProduct.lbl,baseProduct.sc);
@@ -943,34 +947,55 @@ function submitOrder(){
       .catch((error) => {
         console.error(error);
         showToast('Sipariş gönderilemedi!', 'err');
+        if(stockReserveItems.length) releaseStockReservation(stockReserveItems);
       });
   }
 
-  if(appliedCoupon){
-    const couponRef = database.ref('coupons/' + appliedCoupon.docId);
-    couponRef.transaction(cur=>{
-      if(!cur) return;
-      if(cur.frozen) return;
-      const used = cur.usedCount||0;
-      if(used >= cur.limit) return;
-      cur.usedCount = used+1;
-      cur.usedBy = cur.usedBy || [];
-      cur.usedBy.push(name);
-      return cur;
-    }).then(result=>{
-      if(!result.committed){
-        showToast('İndirim kodu artık geçerli değil','err');
-        appliedCoupon=null;
+  const stockReserveItems=stockItemsInCart.map(item=>({id:item.id, qty:item.qty}));
+
+  function proceedWithCouponAndFinalize(){
+    if(appliedCoupon){
+      const couponRef = database.ref('coupons/' + appliedCoupon.docId);
+      couponRef.transaction(cur=>{
+        if(!cur) return;
+        if(cur.frozen) return;
+        const used = cur.usedCount||0;
+        if(used >= cur.limit) return;
+        cur.usedCount = used+1;
+        cur.usedBy = cur.usedBy || [];
+        cur.usedBy.push(name);
+        return cur;
+      }).then(result=>{
+        if(!result.committed){
+          showToast('İndirim kodu artık geçerli değil','err');
+          appliedCoupon=null;
+          renderCart();
+          if(stockReserveItems.length) releaseStockReservation(stockReserveItems);
+          return;
+        }
+        finalizeOrder();
+      }).catch(err=>{
+        console.error(err);
+        showToast('Sipariş gönderilemedi!','err');
+        if(stockReserveItems.length) releaseStockReservation(stockReserveItems);
+      });
+    } else {
+      finalizeOrder();
+    }
+  }
+
+  if(stockReserveItems.length){
+    reserveStockItems(stockReserveItems).then(result=>{
+      if(!result.success){
+        showToast('Üzgünüz, seçtiğiniz stok ürününden yeterli sayıda kalmadı. Sepeti güncelleyin.','err');
+        renderStockGrid();
         renderCart();
         return;
       }
-      finalizeOrder();
-    }).catch(err=>{
-      console.error(err);
-      showToast('Sipariş gönderilemedi!','err');
+      proceedWithCouponAndFinalize();
     });
   } else {
-    finalizeOrder();
+    proceedWithCouponAndFinalize();
   }
 }
 
@@ -1277,20 +1302,37 @@ function renderAdmin(){
 }
 
 function setStatus(firebaseId, newStatus){
-  database.ref('orders/' + firebaseId).update({
-    status: newStatus
-  }).catch(error => {
-    console.error("Güncellenemedi:", error);
-    showToast('Durum güncellenirken hata oluştu!','err');
-  });
+  const orderRef=database.ref('orders/' + firebaseId);
+  if(newStatus==='cancelled'){
+    orderRef.once('value').then(snapshot=>{
+      const order=snapshot.val();
+      return orderRef.update({status:newStatus}).then(()=>{
+        if(order) restoreStockForOrder(order);
+      });
+    }).catch(error => {
+      console.error("Güncellenemedi:", error);
+      showToast('Durum güncellenirken hata oluştu!','err');
+    });
+  } else {
+    orderRef.update({status: newStatus}).catch(error => {
+      console.error("Güncellenemedi:", error);
+      showToast('Durum güncellenirken hata oluştu!','err');
+    });
+  }
 }
 
 function deleteOrder(firebaseId){
   if(confirm("Bu siparişi kalıcı olarak silmek istediğinize emin misiniz?")){
-    database.ref('orders/' + firebaseId).remove()
-      .then(() => {
+    const orderRef=database.ref('orders/' + firebaseId);
+    orderRef.once('value').then(snapshot=>{
+      const order=snapshot.val();
+      return orderRef.remove().then(() => {
+        if(order && order.status==='pending'){
+          restoreStockForOrder(order);
+        }
         showToast('Sipariş silindi');
-      })
+      });
+    })
       .catch(error => {
         console.error("Silinemedi:", error);
         showToast('Silme başarısız', 'err');
@@ -1515,6 +1557,64 @@ function listenStock(){
   });
 }
 
+/* ---------- Stock reservation (decrement on order, restore on cancel/delete) ---------- */
+
+function reserveStockItems(items){
+  // items: [{id: stockFirebaseId, qty: number}, ...]
+  const applied=[];
+  let failed=false;
+  let chain=Promise.resolve();
+
+  items.forEach(item=>{
+    chain=chain.then(()=>{
+      if(failed) return;
+      return database.ref('stock/'+item.id).transaction(cur=>{
+        if(!cur) return; // stock item no longer exists - abort
+        const remaining=cur.stockCount||0;
+        if(remaining<item.qty) return; // not enough left - abort
+        cur.stockCount=remaining-item.qty;
+        return cur;
+      }).then(result=>{
+        if(!result.committed){
+          failed=true;
+        } else {
+          applied.push(item);
+        }
+      });
+    });
+  });
+
+  return chain.then(()=>{
+    if(failed){
+      return releaseStockReservation(applied).then(()=>({success:false}));
+    }
+    return {success:true};
+  });
+}
+
+function releaseStockReservation(items){
+  return Promise.all(items.map(item=>
+    database.ref('stock/'+item.id).transaction(cur=>{
+      if(!cur) return cur;
+      cur.stockCount=(cur.stockCount||0)+item.qty;
+      return cur;
+    })
+  ));
+}
+
+function restoreStockForOrder(order){
+  if(!order || !order.items) return;
+  order.items.forEach(item=>{
+    if(item.isStock && item.id){
+      database.ref('stock/'+item.id).transaction(cur=>{
+        if(!cur) return cur;
+        cur.stockCount=(cur.stockCount||0)+item.qty;
+        return cur;
+      });
+    }
+  });
+}
+
 function populateStockProductSelect(){
   const select=document.getElementById('new-stock-product');
   if(!select) return;
@@ -1549,12 +1649,15 @@ function renderActiveStocks(){
     const baseProduct=PRODUCTS.find(p=>p.id===s.productId);
     const svg=baseProduct?vapeSVG(baseProduct.svgType,baseProduct.c1,baseProduct.c2,baseProduct.lbl,baseProduct.sc):'';
     const productName=baseProduct?baseProduct.name:'(Ürün bulunamadı)';
-    return `<div class="stock-card">
+    const remaining=s.stockCount||0;
+    const soldOut=remaining<=0;
+    const statusBadge=soldOut?'<span class="coupon-badge exhausted">Tükendi</span>':'';
+    return `<div class="stock-card${soldOut?' sold-out':''}">
       <div class="stock-visual">${svg}</div>
       <div class="stock-info">
-        <div class="stock-name">${productName}</div>
+        <div class="stock-name">${productName} ${statusBadge}</div>
         <div class="stock-aroma">Aroma: ${s.aroma}</div>
-        <div class="stock-price">₺${Number(s.price).toLocaleString('tr-TR')} &nbsp;·&nbsp; Stok: ${s.stockCount} adet</div>
+        <div class="stock-price">₺${Number(s.price).toLocaleString('tr-TR')} &nbsp;·&nbsp; Stok: ${remaining} adet</div>
       </div>
       <button class="btn-act del" onclick="deleteStockItem('${s.firebaseId}')" title="Sil">🗑️</button>
     </div>`;
